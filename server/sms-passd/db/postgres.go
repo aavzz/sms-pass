@@ -9,7 +9,7 @@ import (
 var dbh *sql.DB
 
 func InitDB() {
-	err error
+	var err error
 	if dbh, err := sql.Open("postgres", "host=/var/run/postgresql user=foo password=asd dbname=bar sslmode=disable"); err != nil {
 		log.Fatal(err.Error())
 	}
