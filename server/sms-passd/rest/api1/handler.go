@@ -7,9 +7,9 @@ import (
 	"encoding/json"
 	"github.com/aavzz/daemon/log"
 	"net/http"
-	"regexp"
-	"strings"
 	"fmt"
+	"math/rand"
+	"github.com/spf13/viper"
 )
 
 const loginHTML = `
