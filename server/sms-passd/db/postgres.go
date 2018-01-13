@@ -3,7 +3,7 @@ package db
 import (
 	"database/sql"
 	_ "github.com/lib/pq"
-	"errors"
+	"github.com/aavzz/daemon/log"
 )
 
 var dbh *sql.DB
