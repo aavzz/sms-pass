@@ -49,7 +49,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	if login != "" && password == "" {
 
 		const letterBytes = "1234567890"
-		b := make([]byte, viper.GetString("pass_length"))
+		b := make([]byte, viper.GetInt("pass_length"))
 		for i := range b {
 			b[i] = letterBytes[rand.Intn(len(letterBytes))]
 		}
