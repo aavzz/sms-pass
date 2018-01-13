@@ -49,13 +49,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	if login != "" && password == "" {
 
 		const letterBytes = "1234567890"
-		b := make([]byte, viper.GetInt("pass_length"))
+		b := make([]byte, viper.GetInt("local.pass_length"))
 		for i := range b {
 			b[i] = letterBytes[rand.Intn(len(letterBytes))]
 		}
 		//return string(b)
 
 		//generate a password, store it in database and send it via sms
+		//viper.GetString("notifier.url")
 		return
 	}
 
@@ -69,5 +70,5 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	resp.ErrorMsg = "Password is set, login missing"
         if err := ret.Encode(resp); err != nil {
 		log.Error(err.Error())
-	}	
+	}
 }
