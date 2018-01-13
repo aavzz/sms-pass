@@ -21,7 +21,7 @@ func InitDB() {
 	}
 }
 
-func StorePass(pass string) err {
+func StorePass(pass string) error {
 	if _, err := dbh.Exec("INSERT INTO table() values($1)",pass); err != nil {
 		log.Error(err.Error())
 	}
