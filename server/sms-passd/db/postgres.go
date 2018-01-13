@@ -11,7 +11,7 @@ var dbh *sql.DB
 
 func InitDB() {
 	var err error
-	if dbh, err = sql.Open("postgres", "host=" + viper.GetString("db.host") + " user=" + viper.GetString("db.user") + " password" + viper.GetString("db.pass") + " dbname=" + viper.GetString("db.name") + " sslmode=disable"); err != nil {
+	if dbh, err = sql.Open("postgres", "host=" + viper.GetString("db.host") + " user=" + viper.GetString("db.user") + " password=" + viper.GetString("db.pass") + " dbname=" + viper.GetString("db.name") + " sslmode=disable"); err != nil {
 		log.Fatal(err.Error())
 	}
 	if err = dbh.Ping(); err != nil {
