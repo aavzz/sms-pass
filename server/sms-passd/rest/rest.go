@@ -19,8 +19,8 @@ import (
 func InitHttp() {
 	r := mux.NewRouter()
 	r.HandleFunc("/api1", api1.Handler).Methods("POST")
-	r.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(viper.GetString("htdocs")+"/js"))
-	r.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(viper.GetString("htdocs")+"/css"))
+	r.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(viper.GetString("htdocs")+"/js")))
+	r.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(viper.GetString("htdocs")+"/css")))
 
 	s := &http.Server{
 		Addr:     viper.GetString("address"),
