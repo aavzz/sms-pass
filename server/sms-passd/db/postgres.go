@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	_ "github.com/lib/pq"
 	"github.com/aavzz/daemon/log"
+	"github.com/spf13/viper"
 )
 
 var dbh *sql.DB
