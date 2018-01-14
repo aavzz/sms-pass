@@ -59,57 +59,58 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			err := db.StorePass(phones[0], string(b))
 			if err != nil {
 				log.Error(err.Error())
-			}
+			} else {
 
-			parameters := url.Values{
-				"channel": {"beeline"},
-				"recipients": {"+7" + phones[0]},
-				"message":     {string(b)},
-			}
+				parameters := url.Values{
+					"channel": {"beeline"},
+					"recipients": {"+7" + phones[0]},
+					"message":     {string(b)},
+				}
 
-			url := viper.GetString("notifier.url")
-			req, err := http.NewRequest("POST", url, strings.NewReader(parameters.Encode()))
-			if err != nil {
-				log.Error(err.Error())
-			}
-			req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-
-			tr := &http.Transport{
-				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-			}
-			c := &http.Client{Transport: tr}
-
-			resp, err := c.Do(req)
-			if err != nil {
-				log.Error(err.Error())
-			}
-			if resp != nil {
-				defer resp.Body.Close()
-			}
-
-			if resp.StatusCode == 200 {
-				body, err := ioutil.ReadAll(resp.Body)
+				url := viper.GetString("notifier.url")
+				req, err := http.NewRequest("POST", url, strings.NewReader(parameters.Encode()))
 				if err != nil {
 					log.Error(err.Error())
 				}
+				req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
-				var v JResponse
-				if err := json.Unmarshal(body, &v); err != nil {
+				tr := &http.Transport{
+					TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+				}
+				c := &http.Client{Transport: tr}
+
+				resp, err := c.Do(req)
+				if err != nil {
 					log.Error(err.Error())
 				}
+				if resp != nil {
+					defer resp.Body.Close()
+				}
 
-				if v.Error != 0 {
-					log.Error(v.ErrorMsg)
-					myresp.Error = 1
-					myresp.ErrorMsg = "Message not sent"
-					if err := ret.Encode(myresp); err != nil {
+				if resp.StatusCode == 200 {
+					body, err := ioutil.ReadAll(resp.Body)
+					if err != nil {
 						log.Error(err.Error())
 					}
-				} else {
-					myresp.Error = 0
-					myresp.ErrorMsg = "Message sent"
-					if err := ret.Encode(myresp); err != nil {
+
+					var v JResponse
+					if err := json.Unmarshal(body, &v); err != nil {
 						log.Error(err.Error())
+					}
+
+					if v.Error != 0 {
+						log.Error(v.ErrorMsg)
+						myresp.Error = 1
+						myresp.ErrorMsg = "Message not sent"
+						if err := ret.Encode(myresp); err != nil {
+							log.Error(err.Error())
+						}
+					} else {
+						myresp.Error = 0
+						myresp.ErrorMsg = "Message sent"
+						if err := ret.Encode(myresp); err != nil {
+							log.Error(err.Error())
+						}
 					}
 				}
 			} else {
