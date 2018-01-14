@@ -18,18 +18,16 @@ import (
 	"io/ioutil"
 )
 
-const loginHTML = `
-<!DOCTYPE HTML>
+const loginHTML = `<!DOCTYPE HTML>
 <html>
   <head>
     <meta charset="utf-8">
     <title>Hotspot login</title>
   </head>
   <body>
-    <div id='root'></div>
+    <div id='root'>NNN</div>
   </body>
-</html>
-`
+</html>`
 
 // Handler calls the right function to send message via specified channel.
 func Handler(w http.ResponseWriter, r *http.Request) {
@@ -51,7 +49,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		re := regexp.MustCompile(`^\d{10}$`)
 		phones := re.FindAllString(login, 1)
 
-		if phones[0] != "" {
+		if phones != nil && phones[0] != "" {
 			const letterBytes = "1234567890"
 			b := make([]byte, viper.GetInt("local.pass_length"))
 			for i := range b {
@@ -101,7 +99,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 					log.Error(v.ErrorMsg)
 					myresp.Error = 1
 					myresp.ErrorMsg = "Message not sent"
-					if err := ret.Encode(resp); err != nil {
+					if err := ret.Encode(myresp); err != nil {
 						log.Error(err.Error())
 					}
 				} else {
@@ -114,14 +112,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			} else {
 				log.Error(resp.Status)	
 				myresp.Error = 1
-				myresp.ErrorMsg = "Message not sent"
+				myresp.ErrorMsg = "Message not sent: bad status code"
 				if err := ret.Encode(myresp); err != nil {
 					log.Error(err.Error())
 				}
 			}
 		} else {
 			myresp.Error = 1
-			myresp.ErrorMsg = "Message not sent"
+			myresp.ErrorMsg = "Message not sent: phone not set"
 			if err := ret.Encode(myresp); err != nil {
 				log.Error(err.Error())
 			}
