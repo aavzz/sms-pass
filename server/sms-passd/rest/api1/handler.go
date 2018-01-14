@@ -8,10 +8,14 @@ import (
 	"github.com/aavzz/daemon/log"
 	"github.com/aavzz/sms-pass/server/sms-passd/db"
 	"net/http"
+	"net/url"
 	"fmt"
 	"math/rand"
 	"github.com/spf13/viper"
 	"regexp"
+	"strings"
+	"crypto/tls"
+	"io/ioutil"
 )
 
 const loginHTML = `
@@ -45,7 +49,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	case "pass":
 		login := r.FormValue("login")
 		re := regexp.MustCompile(`^\d{10}$`)
-		phones := re.FindAllString(recipients, 1)
+		phones := re.FindAllString(login, 1)
 
 		if phones[0] != "" {
 			const letterBytes = "1234567890"
@@ -94,7 +98,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				}
 
 				if v.Error != 0 {
-					log.Print(v.ErrorMsg)
+					log.Error(v.ErrorMsg)
 					resp.Error = 1
 					resp.ErrorMsg = "Message not sent"
 					if err := ret.Encode(resp); err != nil {
@@ -108,7 +112,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 					}
 				}
 			} else {
-				log.Print(resp.Status)	
+				log.Error(resp.Status)	
 				resp.Error = 1
 				resp.ErrorMsg = "Message not sent"
 				if err := ret.Encode(resp); err != nil {
