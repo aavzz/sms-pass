@@ -1,3 +1,6 @@
+/*
+Package db implements database interaction (postgresql)
+*/
 package db
 
 import (
@@ -9,6 +12,7 @@ import (
 
 var dbh *sql.DB
 
+// InitDB tries to establish a database connection
 func InitDB() {
 	var err error
 	if dbh, err = sql.Open("postgres", "host=" + viper.GetString("db.host") + " user=" + viper.GetString("db.user") + " password=" + viper.GetString("db.pass") + " dbname=" + viper.GetString("db.name") + " sslmode=disable"); err != nil {
@@ -22,13 +26,50 @@ func InitDB() {
 	}
 }
 
-func StorePass(pass string) error {
-	if _, err := dbh.Exec("INSERT INTO table() values($1)",pass); err != nil {
+// StorePass stores passwords in database
+func StorePass(login, pass string) error {
+	t, err := dbh.Begin()
+	if err != nil {
 		return err
 	}
+
+	if _, err := dbh.Exec("DELETE FROM radcheck WHERE username='$1'", login); err != nil {
+		if err := t.Rollback(); err != nil {
+			return err
+		}
+		return err
+	}
+
+	if _, err := dbh.Exec("DELETE FROM radusergroup WHERE username='$1'", login); err != nil {
+		if err := t.Rollback(); err != nil {
+			return err
+		}
+		return err
+	}
+
+	if _, err := dbh.Exec("INSERT INTO radcheck(username, attribute, op, value) VALUES('$1', 'Cleartext-Password',':=','$2')", login, pass); err != nil {
+		if err := t.Rollback(); err != nil {
+			return err
+		}
+		return err
+	}
+
+	if _, err := dbh.Exec("INSERT INTO radusergroup(username, groupname) values('$1', 'hotspotuser')", login); err != nil {
+		if err := t.Rollback(); err != nil {
+			return err
+		}
+		return err
+	}
+
+	err := t.Commit()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
+// Close closes database connection
 func Close() {
 	if dbh != nil {
 		if err := dbh.Close(); err != nil {
@@ -36,3 +77,4 @@ func Close() {
 		}
 	}
 }
+

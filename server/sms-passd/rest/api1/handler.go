@@ -6,10 +6,12 @@ package api1
 import (
 	"encoding/json"
 	"github.com/aavzz/daemon/log"
+	"github.com/aavzz/sms-pass/server/sms-passd/db"
 	"net/http"
 	"fmt"
 	"math/rand"
 	"github.com/spf13/viper"
+	"regexp"
 )
 
 const loginHTML = `
@@ -37,38 +39,91 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	var resp JResponse
 	ret := json.NewEncoder(w)
 
-	login := r.FormValue("login")
-	password := r.FormValue("password")
+	operation := r.FormValue("operation")
 
-	if login == "" && password == "" {
+	switch operation {
+	case "pass":
+		login := r.FormValue("login")
+		re := regexp.MustCompile(`^\d{10}$`)
+		phones := re.FindAllString(recipients, 1)
+
+		if phones[0] != "" {
+			const letterBytes = "1234567890"
+			b := make([]byte, viper.GetInt("local.pass_length"))
+			for i := range b {
+				b[i] = letterBytes[rand.Intn(len(letterBytes))]
+			}
+
+			db.StorePass(phones[0], string(b))
+
+			parameters := url.Values{
+				"channel": {"beeline"},
+				"recipients": {"+7" + phones[0]},
+				"message":     {string(b)},
+			}
+
+			url := viper.GetString("notifier.url")
+			req, err := http.NewRequest("POST", url, strings.NewReader(parameters.Encode()))
+			if err != nil {
+				log.Fatal(err.Error())
+			}
+			req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+			tr := &http.Transport{
+				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			}
+			c := &http.Client{Transport: tr}
+
+			resp, err := c.Do(req)
+			if err != nil {
+				log.Error(err.Error())
+			}
+			if resp != nil {
+				defer resp.Body.Close()
+			}
+
+			if resp.StatusCode == 200 {
+				body, err := ioutil.ReadAll(resp.Body)
+				if err != nil {
+					log.Error(err.Error())
+				}
+
+				var v JResponse
+				if err := json.Unmarshal(body, &v); err != nil {
+					log.Error(err.Error())
+				}
+
+				if v.Error != 0 {
+					log.Print(v.ErrorMsg)
+					resp.Error = 1
+					resp.ErrorMsg = "Message not sent"
+					if err := ret.Encode(resp); err != nil {
+						log.Error(err.Error())
+					}
+				} else {
+					resp.Error = 0
+					resp.ErrorMsg = "Message sent"
+					if err := ret.Encode(resp); err != nil {
+						log.Error(err.Error())
+					}
+				}
+			} else {
+				log.Print(resp.Status)	
+				resp.Error = 1
+				resp.ErrorMsg = "Message not sent"
+				if err := ret.Encode(resp); err != nil {
+					log.Error(err.Error())
+				}
+			}
+		} else {
+			resp.Error = 1
+			resp.ErrorMsg = "Message not sent"
+			if err := ret.Encode(resp); err != nil {
+				log.Error(err.Error())
+			}
+		}
+	default:
 		//send login webpage to client.
 		fmt.Fprintf(w, loginHTML)
-		return
-	}
-
-	if login != "" && password == "" {
-
-		const letterBytes = "1234567890"
-		b := make([]byte, viper.GetInt("local.pass_length"))
-		for i := range b {
-			b[i] = letterBytes[rand.Intn(len(letterBytes))]
-		}
-		//return string(b)
-
-		//generate a password, store it in database and send it via sms
-		//viper.GetString("notifier.url")
-		return
-	}
-
-	if login != "" && password != "" {
-		//check supplied password and redirect
-		return
-	}
-
-	// should never get here
-	resp.Error = 1
-	resp.ErrorMsg = "Password is set, login missing"
-        if err := ret.Encode(resp); err != nil {
-		log.Error(err.Error())
 	}
 }

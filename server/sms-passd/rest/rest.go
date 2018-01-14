@@ -15,7 +15,7 @@ import (
 	"time"
 )
 
-// InitHttpp sets up router.
+// InitHttpp sets up router and starts http server
 func InitHttp() {
 	r := mux.NewRouter()
 	r.HandleFunc("/api1", api1.Handler).Methods("POST")
@@ -38,6 +38,7 @@ func InitHttp() {
 	}
 
 	if err := s.ListenAndServe(); err != nil {
+		pid.Remove()
 		log.Fatal(err.Error())
 	}
 }
