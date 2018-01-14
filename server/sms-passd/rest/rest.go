@@ -19,8 +19,7 @@ import (
 func InitHttp() {
 	r := mux.NewRouter()
 	r.HandleFunc("/api1", api1.Handler).Methods("GET")
-	r.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir(viper.GetString("local.assets")+"/js"))))
-	r.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir(viper.GetString("local.assets")+"/css"))))
+	r.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir(viper.GetString("local.assets")))))
 
 	s := &http.Server{
 		Addr:     viper.GetString("address"),
