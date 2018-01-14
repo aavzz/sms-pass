@@ -33,28 +33,28 @@ func StorePass(login, pass string) error {
 		return err
 	}
 
-	if _, err := dbh.Exec("DELETE FROM radcheck WHERE username='$1'", login); err != nil {
+	if _, err := dbh.Exec("DELETE FROM radcheck WHERE username=$1", login); err != nil {
 		if err := t.Rollback(); err != nil {
 			return err
 		}
 		return err
 	}
 
-	if _, err := dbh.Exec("DELETE FROM radusergroup WHERE username='$1'", login); err != nil {
+	if _, err := dbh.Exec("DELETE FROM radusergroup WHERE username=$1", login); err != nil {
 		if err := t.Rollback(); err != nil {
 			return err
 		}
 		return err
 	}
 
-	if _, err := dbh.Exec("INSERT INTO radcheck(username, attribute, op, value) VALUES('$1', 'Cleartext-Password',':=','$2')", login, pass); err != nil {
+	if _, err := dbh.Exec("INSERT INTO radcheck(username, attribute, op, value) VALUES($1, 'Cleartext-Password', ':=', $2)", login, pass); err != nil {
 		if err := t.Rollback(); err != nil {
 			return err
 		}
 		return err
 	}
 
-	if _, err := dbh.Exec("INSERT INTO radusergroup(username, groupname) values('$1', 'hotspotuser')", login); err != nil {
+	if _, err := dbh.Exec("INSERT INTO radusergroup(username, groupname) values($1, 'hotspotuser')", login); err != nil {
 		if err := t.Rollback(); err != nil {
 			return err
 		}
