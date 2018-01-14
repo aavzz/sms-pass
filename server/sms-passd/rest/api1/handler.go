@@ -56,7 +56,10 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				b[i] = letterBytes[rand.Intn(len(letterBytes))]
 			}
 
-			db.StorePass(phones[0], string(b))
+			err := db.StorePass(phones[0], string(b))
+			if err != nil {
+				log.Error(err.Error())
+			}
 
 			parameters := url.Values{
 				"channel": {"beeline"},
@@ -67,7 +70,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			url := viper.GetString("notifier.url")
 			req, err := http.NewRequest("POST", url, strings.NewReader(parameters.Encode()))
 			if err != nil {
-				log.Fatal(err.Error())
+				log.Error(err.Error())
 			}
 			req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
