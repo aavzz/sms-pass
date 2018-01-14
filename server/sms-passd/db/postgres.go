@@ -61,8 +61,7 @@ func StorePass(login, pass string) error {
 		return err
 	}
 
-	err := t.Commit()
-	if err != nil {
+	if err := t.Commit(); err != nil {
 		return err
 	}
 
