@@ -18,7 +18,7 @@ import (
 // InitHttpp sets up router and starts http server
 func InitHttp() {
 	r := mux.NewRouter()
-	r.HandleFunc("/api1", api1.Handler).Methods("POST")
+	r.HandleFunc("/api1", api1.Handler).Methods("GET")
 	r.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir(viper.GetString("local.assets")+"/js"))))
 	r.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir(viper.GetString("local.assets")+"/css"))))
 
