@@ -99,8 +99,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 				if v.Error != 0 {
 					log.Error(v.ErrorMsg)
-					resp.Error = 1
-					resp.ErrorMsg = "Message not sent"
+					myresp.Error = 1
+					myresp.ErrorMsg = "Message not sent"
 					if err := ret.Encode(resp); err != nil {
 						log.Error(err.Error())
 					}
