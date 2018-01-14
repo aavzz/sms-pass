@@ -40,7 +40,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		ErrorMsg string
 	}
 
-	var resp JResponse
+	var myresp JResponse
 	ret := json.NewEncoder(w)
 
 	operation := r.FormValue("operation")
@@ -105,24 +105,24 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 						log.Error(err.Error())
 					}
 				} else {
-					resp.Error = 0
-					resp.ErrorMsg = "Message sent"
-					if err := ret.Encode(resp); err != nil {
+					myresp.Error = 0
+					myresp.ErrorMsg = "Message sent"
+					if err := ret.Encode(myresp); err != nil {
 						log.Error(err.Error())
 					}
 				}
 			} else {
 				log.Error(resp.Status)	
-				resp.Error = 1
-				resp.ErrorMsg = "Message not sent"
-				if err := ret.Encode(resp); err != nil {
+				myresp.Error = 1
+				myresp.ErrorMsg = "Message not sent"
+				if err := ret.Encode(myresp); err != nil {
 					log.Error(err.Error())
 				}
 			}
 		} else {
-			resp.Error = 1
-			resp.ErrorMsg = "Message not sent"
-			if err := ret.Encode(resp); err != nil {
+			myresp.Error = 1
+			myresp.ErrorMsg = "Message not sent"
+			if err := ret.Encode(myresp); err != nil {
 				log.Error(err.Error())
 			}
 		}
