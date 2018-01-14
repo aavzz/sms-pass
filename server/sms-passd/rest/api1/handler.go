@@ -112,13 +112,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 							log.Error(err.Error())
 						}
 					}
-				}
-			} else {
-				log.Error(resp.Status)	
-				myresp.Error = 1
-				myresp.ErrorMsg = "Message not sent: bad status code"
-				if err := ret.Encode(myresp); err != nil {
-					log.Error(err.Error())
+				} else {
+					log.Error(resp.Status)	
+					myresp.Error = 1
+					myresp.ErrorMsg = "Message not sent: bad status code"
+					if err := ret.Encode(myresp); err != nil {
+						log.Error(err.Error())
+				
+					}
 				}
 			}
 		} else {
