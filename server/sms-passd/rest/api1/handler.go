@@ -20,13 +20,18 @@ import (
 
 const loginHTML = `<!DOCTYPE HTML>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Hotspot login</title>
-  </head>
-  <body>
-    <div id='root'>NNN</div>
-  </body>
+    <link rel="stylesheet" type="text/css" href="/assets/w2ui/dist/w2ui.min.css" />
+    <script src="/assets/w2ui/libs/jquery/jquery-2.1.0.min.js"></script>
+    <script src="/assets/jQuery-Mask-Plugin/dist/jquery.mask.min.js"></script>
+    <script src="/assets/w2ui/dist/w2ui.min.js"></script>
+    <script src="/assets/test_w2.js"></script>
+</head>
+<body>
+    <div id="root" style="width: 445px; height: 700px; display: block; margin-left: auto; margin-right: auto;"></div>
+</body>
 </html>`
 
 // Handler calls the right function to send message via specified channel.
