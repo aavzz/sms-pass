@@ -29,7 +29,7 @@ let appStrings = {
 `,
         agree: 'Согласен',
         doNotAgree: 'Не согласен',
-        denyAccess: 'Для получения доступа необходимо согласиться с Правилами'
+        denyAccess: 'Если пользователь несогласен с Правилами, он должен немедленно прекратить пользование услугой.'
     },
 
     en: {
@@ -60,7 +60,7 @@ let appStrings = {
 `,
         agree: "Accept",
         doNotAgree: "Reject",
-        denyAccess: "Please, accept the service conditions",
+        denyAccess: "If you do not agree with the service conditions, you must stop using the service immidiately",
     },
 
     es: {
@@ -91,7 +91,7 @@ let appStrings = {
 `,
         agree: "Aceptar",
         doNotAgree: "Rechazar",
-        denyAccess: "Acepta las condiciones de servicio, por favor",
+        denyAccess: "Si no acepta las condiciones de servicio, el usuario debe terminar usarlo inmediatamente",
     },
 
 }
