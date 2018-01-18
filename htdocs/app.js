@@ -13,7 +13,7 @@ let appStrings = {
         hotspotOwner: "Хотспот принадлежит",
         provider: "Интернет-провайдер",
         rules: `
-<p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">Правила и условия пользования сетью Wi-Fi (WiFi Хотспот)
+<p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">Правила пользования сетью Wi-Fi (WiFi Хотспот)
 <p style="line-height: 1.4; padding-bottom: 10px; font-weifht: bold;">1. Доступ к сети Интернет, посредством WiFi Хотспот, не является коммерческой услугой и предоставляется на безвозмездной основе.
 <p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold">2. Пользователю Хотспота запрещено:
 <p style="line-height: 1.4; padding-bottom: 5px;">2.1. Размещать информацию, распространение которой запрещено или ограничено законодательством.
@@ -21,11 +21,10 @@ let appStrings = {
 <p style="line-height: 1.4; padding-bottom: 5px;">2.3. Нарушать авторские права на информацию, размещенную в сети Интернет.
 <p style="line-height: 1.4; padding-bottom: 5px;">2.4. Заниматься массовой рассылкой, не запрошенной адресатом.
 <p style="line-height: 1.4; padding-bottom: 5px;">2.5. Осуществлять любые действия, которые могут привести к нарушению функционирования сети Хотспот.
-<p style="line-height: 1.4; padding-bottom: 10px;">2.7. Публиковать или передавать любую информацию или программное обеспечение, которое содержит в себе компьютерные вирусы.
 <p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">3. Владелец Хотспот не несет ответственность:
 <p style="line-height: 1.4; padding-bottom: 5px;">3.1. За любые затраты или ущерб, прямо или косвенно возникшие в результате пользования или невозможности пользования услугой доступа к сети Интернет.
 <p style="line-height: 1.4; padding-bottom: 10px;">3.2. За охват WiFi сигнала и пропускную способность WiFi сети.
-<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">4. Пользователь выражает согласие и разрешает владельцу Wi-Fi Хотспота обрабатывать свои персональные данные (номер мобильного телефона) любым не запрещенным законодательством образом..
+<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">4. Пользователь выражает согласие и разрешает оператору связи обрабатывать свои персональные данные (номер мобильного телефона) любым не запрещенным законодательством образом..
 <p style="line-height: 1.4; padding-bottom: 10px; font-weight: bold;">5. Нажимая кнопку "Согласен", пользователь соглашается с данными условиями.
 `,
         agree: 'Согласен',
@@ -42,23 +41,22 @@ let appStrings = {
         passwordWasSent: "The password was sent to",
         newPass: "Request new password",
         readRules: "Be informed of the service conditions",
-        hotspotOwner: "Hotspot owner",
+        hotspotOwner: "WiFi hotspot service owner",
         provider: "Internet service provider",
         rules: `
-<p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">Правила и условия пользования сетью Wi-Fi (WiFi Хотспот)
-<p style="line-height: 1.4; padding-bottom: 10px; font-weifht: bold;">1. Доступ к сети Интернет, посредством WiFi Хотспот, не является коммерческой услугой и предоставляется на безвозмездной основе.
-<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold">2. Пользователю Хотспота запрещено:
-<p style="line-height: 1.4; padding-bottom: 5px;">2.1. Размещать информацию, распространение которой запрещено или ограничено законодательством.
-<p style="line-height: 1.4; padding-bottom: 5px;">2.2. Распространять информацию, оскорбляющую честь, достоинство и деловую репутацию пользователей сети Интернет.
-<p style="line-height: 1.4; padding-bottom: 5px;">2.3. Нарушать авторские права на информацию, размещенную в сети Интернет.
-<p style="line-height: 1.4; padding-bottom: 5px;">2.4. Заниматься массовой рассылкой, не запрошенной адресатом.
-<p style="line-height: 1.4; padding-bottom: 5px;">2.5. Осуществлять любые действия, которые могут привести к нарушению функционирования сети Хотспот.
-<p style="line-height: 1.4; padding-bottom: 10px;">2.7. Публиковать или передавать любую информацию или программное обеспечение, которое содержит в себе компьютерные вирусы.
-<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">3. Владелец Хотспот не несет ответственность:
-<p style="line-height: 1.4; padding-bottom: 5px;">3.1. За любые затраты или ущерб, прямо или косвенно возникшие в результате пользования или невозможности пользования услугой доступа к сети Интернет.
-<p style="line-height: 1.4; padding-bottom: 10px;">3.2. За охват WiFi сигнала и пропускную способность WiFi сети.
-<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">4. Пользователь выражает согласие и разрешает владельцу Wi-Fi Хотспота обрабатывать свои персональные данные (номер мобильного телефона) любым не запрещенным законодательством образом..
-<p style="line-height: 1.4; padding-bottom: 10px; font-weight: bold;">5. Нажимая кнопку "Согласен", пользователь соглашается с данными условиями.
+<p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">WiFi hotspot service conditions
+<p style="line-height: 1.4; padding-bottom: 10px; font-weifht: bold;">1. Internet access via this Wifi hotspot is provided free of charge.
+<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold">2. The user of this WiFi hotspot is not allowed to:
+<p style="line-height: 1.4; padding-bottom: 5px;">2.1. Use the Service to transmit any material that violates any applicable local, national or international law, or any rule or regulations promulgated thereunder.
+<p style="line-height: 1.4; padding-bottom: 5px;">2.2. Use the Service to harm, or attempt to harm other persons, businesses or other entities.
+<p style="line-height: 1.4; padding-bottom: 5px;">2.3. Use the Service to transmit any material that infringes any copyright, trademark, patent, trade secret, or other proprietary rights of any third party.
+<p style="line-height: 1.4; padding-bottom: 5px;">2.4. Use the Service to transmit or facilitate any unsolicited commercial messages or unsolicited bulk messages. 
+<p style="line-height: 1.4; padding-bottom: 5px;">2.5. Use the Service for any activities, which adversely affect the ability of other people or systems to use the Wi-Fi service or the Internet.
+<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">3. WiFi hotspot service owner is not liable to you for:
+<p style="line-height: 1.4; padding-bottom: 5px;">3.1. Any direct, indirect, incidental, special or consequential damages of any kind as a result of using or inavailability of the Service.
+<p style="line-height: 1.4; padding-bottom: 10px;">3.2. Service interruptions and/or outages, as well as the speed and overall quality of service.
+<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">4. The user gives the express permission to the ISP to collect, store and process his/her personal data.
+<p style="line-height: 1.4; padding-bottom: 10px; font-weight: bold;">5. By pressing the "Accept" button the user fully accepts the above WiFi hotspot service conditions.
 `,
         agree: "Accept",
         doNotAgree: "Reject",
