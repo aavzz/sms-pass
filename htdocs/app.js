@@ -258,7 +258,7 @@ $(function(){
     let params = {
         operation: "info",
     }
-    $.get("/api1", params, function(data) {
+    $.post("/api1", params, function(data) {
         if (data.Error == 0) {
             info.isp.name = data.isp.name;
             info.isp.logo = data.isp.logo;
