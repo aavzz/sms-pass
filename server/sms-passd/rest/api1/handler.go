@@ -154,7 +154,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		}
 		
 		type Resp struct {
-			Error string
+			Error int
 			ErrorMsg string
 			Isp Isp
 			Hotspot Hotspot
@@ -174,12 +174,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		
 		myresp.Hotspot.Name = viper.GetString(clientSection + ".name")
 		myresp.Hotspot.Logo = viper.GetString(clientSection + ".logo")
-		myresp.Hotspot.url_a = viper.GetString(clientSection + ".url_a")
-		myresp.Hotspot.url_r = viper.GetString(clientSection + ".url_r")
+		myresp.Hotspot.Url_a = viper.GetString(clientSection + ".url_a")
+		myresp.Hotspot.Url_r = viper.GetString(clientSection + ".url_r")
 
 		if (myresp.Isp.Name != "" && myresp.Isp.Logo != "" &&
 		    myresp.Hotspot.Name != "" && myresp.Hotspot.Logo != "" &&
-		    myresp.Hotspot.url_a != "" && myresp.Hotspot.url_r != "") {
+		    myresp.Hotspot.Url_a != "" && myresp.Hotspot.Url_r != "") {
 			myresp.Error = 0
 		} else {
 			myresp.Error = 1
