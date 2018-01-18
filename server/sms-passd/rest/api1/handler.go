@@ -27,7 +27,7 @@ const loginHTML = `<!DOCTYPE HTML>
     <script src="/assets/w2ui/libs/jquery/jquery-2.1.0.min.js"></script>
     <script src="/assets/jQuery-Mask-Plugin/dist/jquery.mask.min.js"></script>
     <script src="/assets/w2ui/dist/w2ui.min.js"></script>
-    <script src="/assets/test_w2.js"></script>
+    <script src="/assets/app.js"></script>
 </head>
 <body>
     <div id="root" style="width: 445px; height: 700px; display: block; margin-left: auto; margin-right: auto;"></div>
