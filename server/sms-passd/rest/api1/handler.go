@@ -165,12 +165,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		
 		clientIp := r.RemoteAddr 
 		
-		myresp.Hotspot.Name = viper.GetString("isp.hotspot")
-		
 		re := regexp.MustCompile(`^\d+\.\d+\.\d+`)
 		p := re.FindString(clientIp)
 		re = regexp.MustCompile(`\.`)
 		clientSection := re.ReplaceAllString(p, "_")
+		
+		log.Print("client IP: " + clientIp)
+		log.Print("prefix: " + p)
+		log.Print("client section: " + clientSection)
 		
 		myresp.Hotspot.Name = viper.GetString(clientSection + ".name")
 		myresp.Hotspot.Logo = viper.GetString(clientSection + ".logo")
