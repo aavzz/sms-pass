@@ -41,6 +41,13 @@ func smspassdCommand(cmd *cobra.Command, args []string) {
 	if viper.GetBool("daemonize") == true {
 		pid.Write(viper.GetString("pidfile"))
 		signal.Ignore()
+		signal.Hup(func() {
+			log.Info("SIGHUP received, re-reading configuration file")
+			if err := viper.ReadInConfig(); err != nil {
+				pid.Remove()
+				log.Fatal(err.Error())
+			}
+		})
 		signal.Term(func() {
 			log.Info("SIGTERM received, exitting")
 			pid.Remove()
