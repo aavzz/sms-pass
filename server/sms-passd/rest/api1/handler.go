@@ -163,7 +163,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		myresp.Isp.Name = viper.GetString("isp.name")
 		myresp.Isp.Logo = viper.GetString("isp.logo")
 		
-		clientIp := r.RemoteAddr 
+		clientIp := r.Header.Get("X-Real-IP") 
 		
 		re := regexp.MustCompile(`^\d+\.\d+\.\d+`)
 		p := re.FindString(clientIp)
