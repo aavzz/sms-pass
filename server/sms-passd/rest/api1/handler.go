@@ -163,7 +163,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		myresp.Isp.Name = viper.GetString("isp.name")
 		myresp.Isp.Logo = viper.GetString("isp.logo")
 		
-		var clientIp := r.RemoteAddr 
+		clientIp := r.RemoteAddr 
 		
 		myresp.Hotspot.Name = viper.GetString("isp.hotspot")
 		
@@ -178,7 +178,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		myresp.Hotspot.url_r = viper.GetString(clientSection + ".url_r")
 
 		if (myresp.Isp.Name != "" && myresp.Isp.Logo != "" &&
-		    myresp.Hotspot.Name != && myresp.Hotspot.Logo != "" &&
+		    myresp.Hotspot.Name != "" && myresp.Hotspot.Logo != "" &&
 		    myresp.Hotspot.url_a != "" && myresp.Hotspot.url_r != "") {
 			myresp.Error = 0
 		} else {
