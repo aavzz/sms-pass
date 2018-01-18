@@ -72,25 +72,23 @@ let appStrings = {
         passwordWasSent: "La contraseña fue enviada al número",
         newPass: "Cambiar contraseña",
         readRules: "Acepta las condiciones de servicio",
-        hotspotOwner: "El Hotspot pertenece a",
+        hotspotOwner: "El WiFi hotspot pertenece a",
         provider: "Proveedor de servicio internet",
         rules: `
-<p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">Правила и условия пользования сетью Wi-Fi (WiFi Хотспот)
-<p style="line-height: 1.4; padding-bottom: 10px; font-weifht: bold;">1. Доступ к сети Интернет, посредством WiFi Хотспот, не является коммерческой услугой и предоставляется на безвозмездной основе.
-<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold">2. Пользователю Хотспота запрещено:
-<p style="line-height: 1.4; padding-bottom: 5px;">2.1. Размещать информацию, распространение которой запрещено или ограничено законодательством.
-<p style="line-height: 1.4; padding-bottom: 5px;">2.2. Распространять информацию, оскорбляющую честь, достоинство и деловую репутацию пользователей сети Интернет.
-<p style="line-height: 1.4; padding-bottom: 5px;">2.3. Нарушать авторские права на информацию, размещенную в сети Интернет.
-<p style="line-height: 1.4; padding-bottom: 5px;">2.4. Заниматься массовой рассылкой, не запрошенной адресатом.
-<p style="line-height: 1.4; padding-bottom: 5px;">2.5. Осуществлять любые действия, которые могут привести к нарушению функционирования сети Хотспот.
-<p style="line-height: 1.4; padding-bottom: 10px;">2.7. Публиковать или передавать любую информацию или программное обеспечение, которое содержит в себе компьютерные вирусы.
-<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">3. Владелец Хотспот не несет ответственность:
-<p style="line-height: 1.4; padding-bottom: 5px;">3.1. За любые затраты или ущерб, прямо или косвенно возникшие в результате пользования или невозможности пользования услугой доступа к сети Интернет.
-<p style="line-height: 1.4; padding-bottom: 10px;">3.2. За охват WiFi сигнала и пропускную способность WiFi сети.
-<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">4. Пользователь выражает согласие и разрешает владельцу Wi-Fi Хотспота обрабатывать свои персональные данные (номер мобильного телефона) любым не запрещенным законодательством образом..
-<p style="line-height: 1.4; padding-bottom: 10px; font-weight: bold;">5. Нажимая кнопку "Согласен", пользователь соглашается с данными условиями.
-:w
-:w
+<p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">Condiciones de servicio
+<p style="line-height: 1.4; padding-bottom: 10px; font-weifht: bold;">1. El acceso al Internet se otorga gratis.
+<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold">2. No se podrá utilizar la red WI-FI con los siguientes fines:
+<p style="line-height: 1.4; padding-bottom: 5px;">2.1. Conducir actividates illegales.
+<p style="line-height: 1.4; padding-bottom: 5px;">2.2. Transmisiáón de contenido fraudulento, difamatorio, obsceno, ofensivo o de vandalismo, insultante o acosador, sea éste material o mensajes.
+<p style="line-height: 1.4; padding-bottom: 5px;">2.3. Transmitir, copiar y/o descargar cualquier material que viole cualquier ley. Esto incluye entre otros: material con derecho de autor, pornografía infantil, material amenazante u obsceno, o material protegido por secreto comerc
+ial o patentes.
+<p style="line-height: 1.4; padding-bottom: 5px;">2.4. Enviar mensajes no solicitados (spam).
+<p style="line-height: 1.4; padding-bottom: 5px;">2.5. Dañar equipos, sistemas informáticos o redes y/o perturbar el normal funcionamiento de la red.
+<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">3. El operador del WiFi hotspot no se responsabiliza por:
+<p style="line-height: 1.4; padding-bottom: 5px;">3.1. Qualquier daño que resulta del uso o de la aucencia del servicio.
+<p style="line-height: 1.4; padding-bottom: 10px;">3.2. El nivel de desempeño de la red WI-FI. El servicio puede no estar disponible o ser limitado en cualquier momento y por cualquier motivo.
+<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">4. El usuario da el permiso al operador de la red WiFi a almacenar y processar sus datos personales.
+<p style="line-height: 1.4; padding-bottom: 10px; font-weight: bold;">5. Al acceder y utilizar la red WI-FI el usuario declara que ha leído, entendido y acepta los tréminos y condiciones para su utilización.
 `,
         agree: "Aceptar",
         doNotAgree: "Rechazar",
