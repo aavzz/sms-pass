@@ -18,7 +18,10 @@ import (
 	"io/ioutil"
 )
 
-const loginHTML = `<!DOCTYPE HTML>
+
+// SPA serves initial page
+func SPA(w http.ResponseWriter, r *http.Request) {
+	const loginHTML = `<!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="utf-8">
@@ -34,6 +37,9 @@ const loginHTML = `<!DOCTYPE HTML>
 </body>
 </html>`
 
+	fmt.Fprintf(w, loginHTML)
+}
+	
 // Handler calls the right function to send message via specified channel.
 func Handler(w http.ResponseWriter, r *http.Request) {
 
@@ -134,8 +140,5 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				log.Error(err.Error())
 			}
 		}
-	default:
-		//send login webpage to client.
-		fmt.Fprintf(w, loginHTML)
 	}
 }
