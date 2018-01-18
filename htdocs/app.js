@@ -62,7 +62,7 @@ qwe
 
     es: {
         enterPhoneNumber: "Entra el número de celular",
-        passwordWillBeSent: "La contraseña será enviado al numero entrado",
+        passwordWillBeSent: "La contraseña será enviada al numero entrado",
         send: "Enviar",
         clear: "Borrar",
         enterPassword: "Entra la contraseña",
