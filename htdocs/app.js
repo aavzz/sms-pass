@@ -111,9 +111,9 @@ function mkLayout() {
     $('#root').w2layout({
         name: 'myLayout',
         panels: [
-            { type: 'top', size: 150, style: top, content: '<div style="font-size: 11px;"><center><img src="rk.png" alt="Roga&Kopyta logo" height="110" width="110"><p>' + appStr.hotspotOwner + '</center></div>',},
+            { type: 'top', size: 150, style: top, content: '<div style="font-size: 11px;"><center><img src="' + info.hotspot.logo + '" alt="hotspot owner logo" height="110" width="110"><p>' + appStr.hotspotOwner + ' ' + info.hotspot.name + '</center></div>',},
             { type: 'main', size: 200, },
-            { type: 'bottom', size: 150, style: bottom, content: '<div style="font-size: 11px;"><center><img src="telix3.png" alt="Telix logo" height="54" width="108"><p>' + appStr.provider + '</center></div>',},
+            { type: 'bottom', size: 150, style: bottom, content: '<div style="font-size: 11px;"><center><img src="' + info.isp.logo + '" alt="ISP logo" height="54" width="108"><p>' + appStr.provider + ' ' + info.isp.name + '</center></div>',},
         ],
     });
 }
@@ -248,7 +248,30 @@ function mkPasswdForm(phone) {
 
 ////////////////////////////////////////////////////////////////////////
 
+let info = {
+    isp: {},
+    hotspot: {},
+}
+
 $(function(){
+    
+    let params = {
+        operation: "info",
+    }
+    $.get("/api1", params, function(data) {
+        if (data.Error == 0) {
+            info.isp.name = data.isp.name;
+            info.isp.logo = data.isp.logo;
+            info.hotspot.name = data.hotspot.name;
+            info.hotspot.logo = data.hotspot.logo;
+            info.hotspot.url_a = data.hotspot.url_a;
+            info.hotspot.url_r = data.hotspot.url_r;
+        }
+        else {
+            alert(data.ErrorMsg)
+        }
+    },"json");
+    
     mkLayout();
     mkRulesForm();
     w2ui['myLayout'].content('main', w2ui['formRules']);
