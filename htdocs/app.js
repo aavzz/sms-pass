@@ -83,10 +83,10 @@ let appStrings = {
 <p style="line-height: 1.4; padding-bottom: 5px;">2.3. Transmitir, copiar y/o descargar cualquier material que viole derecho de autor.
 <p style="line-height: 1.4; padding-bottom: 5px;">2.4. Enviar mensajes no solicitados (spam).
 <p style="line-height: 1.4; padding-bottom: 5px;">2.5. Dañar equipos, sistemas informáticos o redes y/o perturbar el normal funcionamiento de la red.
-<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">3. El operador del WiFi hotspot no se responsabiliza por:
+<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">3. Ni el operador del WiFi hotspot, ni el proveedor de servicio internet no se responsabiliza por:
 <p style="line-height: 1.4; padding-bottom: 5px;">3.1. Qualquier daño que resulta del uso o de la aucencia del servicio.
 <p style="line-height: 1.4; padding-bottom: 10px;">3.2. El nivel de desempeño de la red WI-FI. El servicio puede no estar disponible o ser limitado en cualquier momento y por cualquier motivo.
-<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">4. El usuario da el permiso al operador de la red WiFi a almacenar y processar sus datos personales.
+<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">4. El usuario da su permiso al proveedor de servicio internet a almacenar y processar sus datos personales.
 <p style="line-height: 1.4; padding-bottom: 10px; font-weight: bold;">5. Al acceder y utilizar la red WI-FI el usuario declara que ha leído, entendido y acepta los tréminos y condiciones para su utilización.
 `,
         agree: "Aceptar",
