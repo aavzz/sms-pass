@@ -163,10 +163,28 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		myresp.Isp.Name = viper.GetString("isp.name")
 		myresp.Isp.Logo = viper.GetString("isp.logo")
 		
-		var prefix := r.Remote.Addr 
+		var clientIp := r.RemoteAddr 
 		
 		myresp.Hotspot.Name = viper.GetString("isp.hotspot")
 		
+		re := regexp.MustCompile(`^\d+\.\d+\.\d+`)
+		p := re.FindString(clientIp)
+		re = regexp.MustCompile(`\.`)
+		clientSection := re.ReplaceAllString(p, "_")
+		
+		myresp.Hotspot.Name = viper.GetString(clientSection + ".name")
+		myresp.Hotspot.Logo = viper.GetString(clientSection + ".logo")
+		myresp.Hotspot.url_a = viper.GetString(clientSection + ".url_a")
+		myresp.Hotspot.url_r = viper.GetString(clientSection + ".url_r")
+
+		if (myresp.Isp.Name != "" && myresp.Isp.Logo != "" &&
+		    myresp.Hotspot.Name != && myresp.Hotspot.Logo != "" &&
+		    myresp.Hotspot.url_a != "" && myresp.Hotspot.url_r != "") {
+			myresp.Error = 0
+		} else {
+			myresp.Error = 1
+			myresp.ErrorMsg = "Some parameters are missing"
+		}
 		
 		if err := ret.Encode(myresp); err != nil {
 			log.Error(err.Error())
