@@ -140,5 +140,31 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				log.Error(err.Error())
 			}
 		}
+	case "info":
+		type isp struct {
+			name string
+			logo string
+		}
+		
+		type hotspot struct {
+			name string
+			logo string
+			url_a string
+			url_r string
+		}
+		
+		type resp struct {
+			isp isp
+			hotspot hotspot
+		}
+		var myresp resp
+		myresp.isp.name = viper.GetString("isp.name")
+		myresp.isp.logo = viper.GetString("isp.logo")
+		
+		
+		
+		if err := ret.Encode(myresp); err != nil {
+			log.Error(err.Error())
+		}
 	}
 }
