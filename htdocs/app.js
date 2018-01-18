@@ -42,16 +42,50 @@ let appStrings = {
     },
 
     en: {
-
+        enterPhoneNumber: "Enter phone number",
+        passwordWillBeSent: "Password will be sent to the phone number specified",
+        send: "Send",
+        clear: "Reset",
+        enterPassword: "Enter password",
+        passwordWasSent: "The password was sent to",
+        newPass: "Request new password",
+        readRules: "Be informed of the service conditions",
+        hotspotOwner: "Hotspot owner",
+        provider: "Internet service provider",
+        rules: `
+qwe
+`,
+        agree: "Accept",
+        doNotAgree: "Reject",
+        denyAccess: "Please, accept the service conditions",
     },
 
     es: {
-
+        enterPhoneNumber: "Entra el número de celular",
+        passwordWillBeSent: "La contraseña será enviado al numero entrado",
+        send: "Enviar",
+        clear: "Borrar",
+        enterPassword: "Entra la contraseña",
+        passwordWasSent: "La contraseña fue enviada al número",
+        newPass: "Cambiar contraseña",
+        readRules: "Condiciones de servicio",
+        hotspotOwner: "El Hotspot pertenece a",
+        provider: "Proveedor de servicio internet",
+        rules: `
+qwe
+`,
+        agree: "Aceptar",
+        doNotAgree: "Rechazar",
+        denyAccess: "Acepta las condiciones de servicio, por favor",
     },
 
 }
 
-let appStr = appStrings.ru;
+let language = navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage;
+let appStr = appStrings[language.replace(/-.*$/, "")];
+if (appStr == undefined) {
+    appStr = appStrings.en;
+}
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -64,7 +98,7 @@ function mkLayout() {
         panels: [
             { type: 'top', size: 150, style: top, content: '<div style="font-size: 11px;"><center><img src="rk.png" alt="Roga&Kopyta logo" height="110" width="110"><p>' + appStr.hotspotOwner + '</center></div>',},
             { type: 'main', size: 200, },
-            { type: 'bottom', size: 150, style: bottom, content: '<div style="font-size: 11px;"><center><img src="telix3.png" alt="Telix logo" height="94" width="188"><p>' + appStr.provider + '</center></div>',},
+            { type: 'bottom', size: 150, style: bottom, content: '<div style="font-size: 11px;"><center><img src="telix3.png" alt="Telix logo" height="54" width="108"><p>' + appStr.provider + '</center></div>',},
         ],
     });
 }
@@ -179,7 +213,16 @@ function mkPasswdForm(phone) {
         ],
         actions: {
             "reset": function () { this.clear(); },
-            "save": function () { alert(w2ui['formPassword'].record.pass); },
+            "save": function () {
+                        let pass = w2ui['formPassword'].record.pass;
+                        let reg = /^\d{5}$/;
+                        if (pass != undefined && reg.test(pass)) {
+                            alert(pass);
+                        }
+                        else {
+                            this.clear();
+                        }
+            },
             "newpass": function () {
                            w2ui['myLayout'].content('main', w2ui['formPhone']);
             },
@@ -191,7 +234,6 @@ function mkPasswdForm(phone) {
 ////////////////////////////////////////////////////////////////////////
 
 $(function(){
-
     mkLayout();
     mkRulesForm();
     w2ui['myLayout'].content('main', w2ui['formRules']);
