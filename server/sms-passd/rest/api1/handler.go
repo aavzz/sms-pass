@@ -63,7 +63,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		}
 		var myresp PassResp
 		login := r.FormValue("login")
-		re := regexp.MustCompile(`^\d{10}$`)
+		re := regexp.MustCompile(`^\d+$`)
 		phones := re.FindAllString(login, 1)
 
 		if phones != nil && phones[0] != "" {
