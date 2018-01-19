@@ -146,7 +146,7 @@ function mkPasswdForm(phone) {
             "reset": function () { this.clear(); },
             "save": function () {
                         let pass = w2ui['formPassword'].record.pass;
-                        let reg = /^\d{appConfig.passLength}$/;
+                        let reg = new RegExp('^\\d{' + appConfig.passLength + '}$');
                         if (pass != undefined && reg.test(pass)) {
                             alert(pass);
                         }
