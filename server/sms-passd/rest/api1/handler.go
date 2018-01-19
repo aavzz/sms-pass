@@ -175,6 +175,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		myresp.hotspot.urlA = viper.GetString(clientSection + ".url_a")
 		myresp.hotspot.urlR = viper.GetString(clientSection + ".url_r")
 		
+		log.Info("Header: " + header)
+		
 		// check if all the data bits are ready and send JSON response
 		if myresp.isp.name != "" && myresp.isp.logo != "" &&
 			myresp.hotspot.name != "" && myresp.hotspot.logo != "" &&
