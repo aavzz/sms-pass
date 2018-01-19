@@ -175,7 +175,7 @@ function mkPasswdForm(phone) {
 $(function(){
 
 $.post("/api1", {operation: "config"}, function(data) {
-    if (data.Error == "0") {
+    if (data.error == "0") {
         appConfig.passLength = data.passLength
         appConfig.phoneMask = data.phoneMask
         appConfig.phonePlaceholder = data.phonePlaceholder
@@ -195,7 +195,7 @@ $.post("/api1", {operation: "config"}, function(data) {
         w2ui['myLayout'].content('main', w2ui['formRules']);
     }
     else {
-        alert(data.ErrorMsg);
+        alert(data.errorMsg);
     }
 },"json");
     
