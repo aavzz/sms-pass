@@ -4,48 +4,48 @@ Package api1 implements version 1 of sms-passd API.
 package api1
 
 import (
+	"crypto/tls"
 	"encoding/json"
+	"fmt"
 	"github.com/aavzz/daemon/log"
 	"github.com/aavzz/sms-pass/server/sms-passd/db"
+	"github.com/spf13/viper"
+	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"net/url"
-	"fmt"
-	"math/rand"
-	"github.com/spf13/viper"
 	"regexp"
 	"strings"
-	"crypto/tls"
-	"io/ioutil"
 )
 
 type isp struct {
-	name string
-	logo string
+	name       string
+	logo       string
 	logoHeight int
-	logoWidth int
+	logoWidth  int
 }
-		
+
 type hotspot struct {
-	name string
-	logo string
+	name       string
+	logo       string
 	logoHeight int
-	logoWidth int
-	urlA string
-	urlR string
+	logoWidth  int
+	urlA       string
+	urlR       string
 }
-		
+
 type configResp struct {
-	error int
-	errorMsg string
-	passLength int
-	phoneMask string
+	error            int
+	errorMsg         string
+	passLength       int
+	phoneMask        string
 	phonePlaceholder string
-	isp isp
-	hotspot hotspot
+	isp              isp
+	hotspot          hotspot
 }
 
 type passResp struct {
-	error int
+	error    int
 	errorMsg string
 }
 
@@ -80,9 +80,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			} else {
 
 				parameters := url.Values{
-					"channel": {viper.GetInt("notifier.channel")},
+					"channel":    {viper.GetInt("notifier.channel")},
 					"recipients": {"+" + phones[0]},
-					"message": {string(b)},
+					"message":    {string(b)},
 				}
 
 				url := viper.GetString("notifier.url")
@@ -131,12 +131,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 						}
 					}
 				} else {
-					log.Error(resp.Status)	
+					log.Error(resp.Status)
 					myresp.Error = 1
 					myresp.ErrorMsg = "Message not sent: bad status code"
 					if err := ret.Encode(myresp); err != nil {
 						log.Error(err.Error())
-				
+
 					}
 				}
 			}
@@ -149,19 +149,18 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		}
 	case "config":
 		var myresp configResp
-                myresp.passLength = viper.GetInt("sms-passd.pass_length")
-                myresp.phoneMask = viper.GetInt("sms-passd.phone_mask")
-                myresp.phonePlaceholder = viper.GetInt("sms-passd.phone_placeholder")
+		myresp.passLength = viper.GetInt("sms-passd.pass_length")
+		myresp.phoneMask = viper.GetInt("sms-passd.phone_mask")
+		myresp.phonePlaceholder = viper.GetInt("sms-passd.phone_placeholder")
 		myresp.isp.name = viper.GetString("isp.name")
 		myresp.isp.logo = viper.GetString("isp.logo")
 		myresp.isp.logoHeight = viper.GetInt("isp.logo_height")
 		myresp.isp.logoWidth = viper.GetInt("isp.logo_width")
-		
 
 		// figure out client prefix and get client configuration
 		header := viper.GetString("sms-passd.real_ip_header")
 		if header == "" || header == "none" {
-			clientIp := r.Header.Get(header) 
+			clientIp := r.Header.Get(header)
 		} else {
 			clientIp = r.RemoteAddr
 		}
@@ -176,11 +175,10 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		myresp.hotspot.urlA = viper.GetString(clientSection + ".url_a")
 		myresp.hotspot.urlR = viper.GetString(clientSection + ".url_r")
 
-
 		// check if all the data bits are ready and send JSON response
-		if (myresp.isp.name != "" && myresp.isp.logo != "" &&
-		    myresp.hotspot.name != "" && myresp.hotspot.logo != "" &&
-		    myresp.hotspot.urlA != "" && myresp.hotspot.urlR != "") {
+		if myresp.isp.name != "" && myresp.isp.logo != "" &&
+			myresp.hotspot.name != "" && myresp.hotspot.logo != "" &&
+			myresp.hotspot.urlA != "" && myresp.hotspot.urlR != "" {
 			myresp.error = 0
 		} else {
 			myresp.error = 1

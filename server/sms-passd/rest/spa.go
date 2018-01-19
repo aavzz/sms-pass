@@ -23,5 +23,5 @@ const startPage = `<!DOCTYPE HTML>
 </html>`
 
 func spa(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintf(w, startPage)
+	fmt.Fprintf(w, startPage)
 }

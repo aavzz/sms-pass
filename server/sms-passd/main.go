@@ -4,9 +4,9 @@ sms-passd generates a password and sends it via SMS using notifier service
 package main
 
 import (
+	"github.com/aavzz/sms-pass/server/sms-passd/cmd"
 	"math/rand"
 	"time"
-	"github.com/aavzz/sms-pass/server/sms-passd/cmd"
 )
 
 func main() {
