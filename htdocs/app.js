@@ -26,7 +26,8 @@ function mkLayout() {
             { type: 'main', size: 200, },
             { type: 'bottom', size: 150, style: bottom, content: '<div style="font-size: 11px;"><center><img src="' +
                 appConfig.isp.logo + '" alt="ISP logo" height="' + appConfig.isp.logoHeight + '" width="' +
-                appConfig.isp.logoWidth  + '"><p>' + appStr.provider + ' ' + appConfig.isp.name + '</center></div>',},
+                appConfig.isp.logoWidth  + '"><p>' + appStr.provider + ' ' +
+                appConfig.isp.name + '<p style="font-size: 9px;">sms-pass by Alex Zimnitsky</center></div>',},
         ],
     });
 }
@@ -51,8 +52,10 @@ function mkRulesForm() {
         actions: {
             "reset": function () {
                          w2popup.open({
-                             title   : appStr.readRules,
-                             body    : '<p>' + appStr.denyAccess,
+                             title: appStr.readRules,
+                             body : '<div style="margin-left: 20px; margin-right: 20px;"><p>' + appStr.denyAccess + '</div>',
+                             width: 300,
+                             height: 150,
                          });
                      },
             "save": function () {
@@ -176,6 +179,7 @@ $(function(){
 
 $.post("/api1", {operation: "config"}, function(data) {
     if (data.Error == "0") {
+        appConfig.redirect = data.Redirect
         appConfig.passLength = data.PassLength
         appConfig.phoneMask = data.PhoneMask
         appConfig.phonePlaceholder = data.PhonePlaceholder
@@ -189,6 +193,10 @@ $.post("/api1", {operation: "config"}, function(data) {
         appConfig.hotspot.logoWidth = data.Hotspot.LogoWidth;
         appConfig.hotspot.urlA = data.Hotspot.UrlA;
         appConfig.hotspot.urlR = data.Hotspot.UrlR;
+
+        if (appConfig.hotspot.name = "") {
+            window.location.replace(appConfig.redirect);
+        }
 
         mkLayout();
         mkRulesForm();

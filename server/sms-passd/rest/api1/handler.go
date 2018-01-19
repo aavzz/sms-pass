@@ -39,6 +39,7 @@ type ConfigResp struct {
 	PassLength       int
 	PhoneMask        string
 	PhonePlaceholder string
+	Redirect         string
 	Isp              Isp
 	Hotspot          Hotspot
 }
@@ -151,6 +152,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		myresp.PassLength = viper.GetInt("sms-passd.pass_length")
 		myresp.PhoneMask = viper.GetString("sms-passd.phone_mask")
 		myresp.PhonePlaceholder = viper.GetString("sms-passd.phone_placeholder")
+		myresp.Redirect = viper.GetString("sms-passd.redirect")
 		myresp.Isp.Name = viper.GetString("isp.name")
 		myresp.Isp.Logo = viper.GetString("isp.logo")
 		myresp.Isp.LogoHeight = viper.GetInt("isp.logo_height")
@@ -176,9 +178,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		myresp.Hotspot.UrlR = viper.GetString(clientSection + ".url_r")
 		
 		// check if all the data bits are ready and send JSON response
-		if myresp.Isp.Name != "" && myresp.Isp.Logo != "" &&
-			myresp.Hotspot.Name != "" && myresp.Hotspot.Logo != "" &&
-			myresp.Hotspot.UrlA != "" && myresp.Hotspot.UrlR != "" {
+		if myresp.Redirect != "" {
 			myresp.Error = 0
 		} else {
 			myresp.Error = 1
