@@ -6,7 +6,6 @@ package api1
 import (
 	"crypto/tls"
 	"encoding/json"
-	"fmt"
 	"github.com/aavzz/daemon/log"
 	"github.com/aavzz/sms-pass/server/sms-passd/db"
 	"github.com/spf13/viper"
