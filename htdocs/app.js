@@ -174,7 +174,7 @@ function mkPasswdForm(phone) {
 
 $(function(){
 
-$.post("/api1", {operation: "info"}, function(data) {
+$.post("/api1", {operation: "config"}, function(data) {
     if (data.Error == "0") {
         appConfig.passLength = data.passLength
         appConfig.phoneMask = data.phoneMask
