@@ -160,9 +160,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		header := viper.GetString("sms-passd.real_ip_header")
 		var clientIp string
 		if header == "" || header == "none" {
-			clientIp = r.Header.Get(header)
-		} else {
 			clientIp = r.RemoteAddr
+		} else {
+			clientIp = r.Header.Get(header)
 		}
 		re := regexp.MustCompile(`^\d+\.\d+\.\d+`)
 		p := re.FindString(clientIp)
@@ -174,8 +174,6 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		myresp.hotspot.logoHeight = viper.GetInt(clientSection + ".logo_height")
 		myresp.hotspot.urlA = viper.GetString(clientSection + ".url_a")
 		myresp.hotspot.urlR = viper.GetString(clientSection + ".url_r")
-
-		log.Info(p)
 		
 		// check if all the data bits are ready and send JSON response
 		if myresp.isp.name != "" && myresp.isp.logo != "" &&
