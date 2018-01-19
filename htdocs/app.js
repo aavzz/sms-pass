@@ -161,7 +161,7 @@ function mkPasswdForm(phone) {
     });
 
     let m = "0";
-    let p = "X;
+    let p = "X";
     for (let i = 1; i < appConfig.passLength; i++) {
         m = m + "0";
         p = p + "X";
