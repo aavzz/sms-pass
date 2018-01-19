@@ -39,8 +39,8 @@ type ConfigResp struct {
 	PassLength       int
 	PhoneMask        string
 	PhonePlaceholder string
-	Isp              isp
-	Hotspot          hotspot
+	Isp              Isp
+	Hotspot          Hotspot
 }
 
 type PassResp struct {
