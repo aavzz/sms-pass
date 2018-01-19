@@ -79,7 +79,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			} else {
 
 				parameters := url.Values{
-					"channel":    {viper.GetInt("notifier.channel")},
+					"channel":    {viper.GetString("notifier.channel")},
 					"recipients": {"+" + phones[0]},
 					"message":    {string(b)},
 				}
@@ -117,22 +117,22 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 					if v.Error != 0 {
 						log.Error(v.ErrorMsg)
-						myresp.Error = 1
-						myresp.ErrorMsg = "Message not sent"
+						myresp.error = 1
+						myresp.errorMsg = "Message not sent"
 						if err := ret.Encode(myresp); err != nil {
 							log.Error(err.Error())
 						}
 					} else {
-						myresp.Error = 0
-						myresp.ErrorMsg = "Message sent"
+						myresp.error = 0
+						myresp.errorMsg = "Message sent"
 						if err := ret.Encode(myresp); err != nil {
 							log.Error(err.Error())
 						}
 					}
 				} else {
 					log.Error(resp.Status)
-					myresp.Error = 1
-					myresp.ErrorMsg = "Message not sent: bad status code"
+					myresp.error = 1
+					myresp.errorMsg = "Message not sent: bad status code"
 					if err := ret.Encode(myresp); err != nil {
 						log.Error(err.Error())
 
@@ -140,8 +140,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		} else {
-			myresp.Error = 1
-			myresp.ErrorMsg = "Message not sent: phone not set"
+			myresp.error = 1
+			myresp.errorMsg = "Message not sent: phone not set"
 			if err := ret.Encode(myresp); err != nil {
 				log.Error(err.Error())
 			}
