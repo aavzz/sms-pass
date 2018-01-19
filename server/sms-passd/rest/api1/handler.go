@@ -149,8 +149,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	case "config":
 		var myresp configResp
 		myresp.passLength = viper.GetInt("sms-passd.pass_length")
-		myresp.phoneMask = viper.GetInt("sms-passd.phone_mask")
-		myresp.phonePlaceholder = viper.GetInt("sms-passd.phone_placeholder")
+		myresp.phoneMask = viper.GetString("sms-passd.phone_mask")
+		myresp.phonePlaceholder = viper.GetString("sms-passd.phone_placeholder")
 		myresp.isp.name = viper.GetString("isp.name")
 		myresp.isp.logo = viper.GetString("isp.logo")
 		myresp.isp.logoHeight = viper.GetInt("isp.logo_height")
@@ -158,8 +158,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 		// figure out client prefix and get client configuration
 		header := viper.GetString("sms-passd.real_ip_header")
+		var clientIp string
 		if header == "" || header == "none" {
-			clientIp := r.Header.Get(header)
+			clientIp = r.Header.Get(header)
 		} else {
 			clientIp = r.RemoteAddr
 		}
@@ -169,8 +170,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		clientSection := re.ReplaceAllString(p, "_")
 		myresp.hotspot.name = viper.GetString(clientSection + ".name")
 		myresp.hotspot.logo = viper.GetString(clientSection + ".logo")
-		myresp.hotspot.logoWidth = viper.GetString(clientSection + ".logo_width")
-		myresp.hotspot.logoHeight = viper.GetString(clientSection + ".logo_height")
+		myresp.hotspot.logoWidth = viper.GetInt(clientSection + ".logo_width")
+		myresp.hotspot.logoHeight = viper.GetInt(clientSection + ".logo_height")
 		myresp.hotspot.urlA = viper.GetString(clientSection + ".url_a")
 		myresp.hotspot.urlR = viper.GetString(clientSection + ".url_r")
 
