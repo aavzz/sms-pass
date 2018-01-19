@@ -121,10 +121,11 @@ function mkPhoneForm() {
 ////////////////////////////////////////////////////////////////////////
 
 function mkPasswdForm(phone) {
-
+    let phoneStripped = phone.replace(/[^0-9]/g, "");
     $('#formPassword').w2form({
         name   : 'formPassword',
         header   : appStr.enterPassword,
+        url : 'http:/10.15.55.1/login',
         formHTML:
             '<div class="w2ui-page page-0">'+
             '    <div style="width: 380px; height: 50px; font-size: 12px; display: block; margin-left: auto; margin-right: auto;">'+
@@ -133,7 +134,8 @@ function mkPasswdForm(phone) {
             '    </div>'+
             '    <div class="w2ui-field">'+
             '        <div>'+
-            '            <input id="p3" class="input-phone" name="pass" maxlength="15" size="15"/>'+
+            '            <input id="p3" class="input-phone" name="password" maxlength="15" size="15"/>'+
+            '            <input type="hidden" name="dst" value="https://www.telixnet.ru"/>'+
             '        </div>'+
             '    </div>'+
             '</div>'+
@@ -143,15 +145,16 @@ function mkPasswdForm(phone) {
             '   <button class="btn btn-green" name="save">' + appStr.send + '</button>'+
             '</div>',
         fields : [
-            { name: 'pass', type: 'text', },
+            { name: 'password', type: 'text', },
         ],
         actions: {
             "reset": function () { this.clear(); },
             "save": function () {
-                        let pass = w2ui['formPassword'].record.pass;
+                        let pass = w2ui['formPassword'].record.password;
                         let reg = new RegExp('^\\d{' + appConfig.passLength + '}$');
                         if (pass != undefined && reg.test(pass)) {
-                            alert(pass);
+                            //cannot use save(), we need get request
+                            window.location.replace(appConfig.hotspot.urlA + '?username=' + phoneStripped + '&password=' + pass + '&dst=' + appConfig.hotspot.urlR);
                         }
                         else {
                             this.clear();
@@ -169,8 +172,8 @@ function mkPasswdForm(phone) {
         m = m + "0";
         p = p + "X";
     }
-    $('input[name="pass"]').mask(m, {placeholder: p, clearIfNotMatch: true, });
-    w2ui['formPassword'].record.pass="";
+    $('input[name="password"]').mask(m, {placeholder: p, clearIfNotMatch: true, });
+    w2ui['formPassword'].record.password="";
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -194,13 +197,14 @@ $.post("/api1", {operation: "config"}, function(data) {
         appConfig.hotspot.urlA = data.Hotspot.UrlA;
         appConfig.hotspot.urlR = data.Hotspot.UrlR;
 
-        if (appConfig.hotspot.name = "") {
+        if (appConfig.hotspot.name == "") {
             window.location.replace(appConfig.redirect);
         }
-
-        mkLayout();
-        mkRulesForm();
-        w2ui['myLayout'].content('main', w2ui['formRules']);
+        else {
+            mkLayout();
+            mkRulesForm();
+            w2ui['myLayout'].content('main', w2ui['formRules']);
+        }
     }
     else {
         alert(data.ErrorMsg);
