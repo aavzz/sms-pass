@@ -175,27 +175,27 @@ function mkPasswdForm(phone) {
 $(function(){
 
 $.post("/api1", {operation: "config"}, function(data) {
-    if (data.error == "0") {
-        appConfig.passLength = data.passLength
-        appConfig.phoneMask = data.phoneMask
-        appConfig.phonePlaceholder = data.phonePlaceholder
-        appConfig.isp.name = data.isp.name;
-        appConfig.isp.logo = data.isp.logo;
-        appConfig.isp.logoHeight = data.isp.logoHeight;
-        appConfig.isp.logoWidth = data.isp.logoWidth;
-        appConfig.hotspot.name = data.hotspot.name;
-        appConfig.hotspot.logo = data.hotspot.logo;
-        appConfig.hotspot.logoHeight = data.hotspot.logoHeight;
-        appConfig.hotspot.logoWidth = data.hotspot.logoWidth;
-        appConfig.hotspot.urlA = data.hotspot.urlA;
-        appConfig.hotspot.urlR = data.hotspot.urlR;
+    if (data.Error == "0") {
+        appConfig.passLength = data.PassLength
+        appConfig.phoneMask = data.PhoneMask
+        appConfig.phonePlaceholder = data.PhonePlaceholder
+        appConfig.isp.name = data.Isp.Name;
+        appConfig.isp.logo = data.Isp.Logo;
+        appConfig.isp.logoHeight = data.Isp.LogoHeight;
+        appConfig.isp.logoWidth = data.Isp.LogoWidth;
+        appConfig.hotspot.name = data.Hotspot.Name;
+        appConfig.hotspot.logo = data.Hotspot.Logo;
+        appConfig.hotspot.logoHeight = data.Hotspot.LogoHeight;
+        appConfig.hotspot.logoWidth = data.Hotspot.LogoWidth;
+        appConfig.hotspot.urlA = data.Hotspot.UrlA;
+        appConfig.hotspot.urlR = data.Hotspot.UrlR;
 
         mkLayout();
         mkRulesForm();
         w2ui['myLayout'].content('main', w2ui['formRules']);
     }
     else {
-        alert(data.errorMsg);
+        alert(data.ErrorMsg);
     }
 },"json");
     
