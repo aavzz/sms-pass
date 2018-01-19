@@ -10,7 +10,7 @@ let appStrings = {
         passwordWasSent: "Пароль был выслан на номер",
         newPass: "Запросить новый",
         readRules: "Ознакомьтесь с правилами",
-        hotspotOwner: "Хотспот принадлежит",
+        hotspotOwner: "WiFi Хотспот",
         provider: "Интернет-провайдер",
         rules: `
 <p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">Правила пользования сетью Wi-Fi (WiFi Хотспот)
@@ -41,7 +41,7 @@ let appStrings = {
         passwordWasSent: "The password was sent to",
         newPass: "Request new password",
         readRules: "Be informed of the service conditions",
-        hotspotOwner: "WiFi hotspot service owner",
+        hotspotOwner: "WiFi hotspot",
         provider: "Internet service provider",
         rules: `
 <p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">WiFi hotspot service conditions
@@ -72,7 +72,7 @@ let appStrings = {
         passwordWasSent: "La contraseña fue enviada al número",
         newPass: "Cambiar contraseña",
         readRules: "Acepta las condiciones de servicio",
-        hotspotOwner: "El WiFi hotspot pertenece a",
+        hotspotOwner: "WiFi hotspot",
         provider: "Proveedor de servicio internet",
         rules: `
 <p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">Condiciones de servicio
