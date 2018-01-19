@@ -117,22 +117,22 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 					if v.Error != 0 {
 						log.Error(v.ErrorMsg)
-						myresp.error = 1
-						myresp.errorMsg = "Message not sent"
+						myresp.Error = 1
+						myresp.ErrorMsg = "Message not sent"
 						if err := ret.Encode(myresp); err != nil {
 							log.Error(err.Error())
 						}
 					} else {
-						myresp.error = 0
-						myresp.errorMsg = "Message sent"
+						myresp.Error = 0
+						myresp.ErrorMsg = "Message sent"
 						if err := ret.Encode(myresp); err != nil {
 							log.Error(err.Error())
 						}
 					}
 				} else {
 					log.Error(resp.Status)
-					myresp.error = 1
-					myresp.errorMsg = "Message not sent: bad status code"
+					myresp.Error = 1
+					myresp.ErrorMsg = "Message not sent: bad status code"
 					if err := ret.Encode(myresp); err != nil {
 						log.Error(err.Error())
 
@@ -140,8 +140,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		} else {
-			myresp.error = 1
-			myresp.errorMsg = "Message not sent: phone not set"
+			myresp.Error = 1
+			myresp.ErrorMsg = "Message not sent: phone not set"
 			if err := ret.Encode(myresp); err != nil {
 				log.Error(err.Error())
 			}
