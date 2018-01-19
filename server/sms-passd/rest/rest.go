@@ -1,6 +1,3 @@
-/*
-Package rest implements REST interface of sms-passd.
-*/
 package rest
 
 import (
@@ -18,7 +15,7 @@ import (
 // InitHttpp sets up router and starts http server
 func InitHttp() {
 	r := mux.NewRouter()
-	r.HandleFunc("/", api1.SPA).Methods("GET")
+	r.HandleFunc("/", spa).Methods("GET")
 	r.HandleFunc("/api1", api1.Handler).Methods("POST")
 	r.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir(viper.GetString("local.assets")))))
 

@@ -7,8 +7,9 @@ if (appStr == undefined) {
 
 // 
 let appConfig = {
-    isp: {},
-    hotspot: {},
+    passLength: 5,
+    isp: {logoWidth: 100, logoHeight: 100,},
+    hotspot: {logoWidth: 100, logoHeight: 100,},
 };
 
 ////////////////////////////////////////////////////////////////////////
@@ -19,9 +20,13 @@ function mkLayout() {
     $('#root').w2layout({
         name: 'myLayout',
         panels: [
-            { type: 'top', size: 150, style: top, content: '<div style="font-size: 11px;"><center><img src="' + info.hotspot.logo + '" alt="hotspot owner logo" height="110" width="110"><p>' + appStr.hotspotOwner + ' ' + info.hotspot.name + '</center></div>',},
+            { type: 'top', size: 150, style: top, content: '<div style="font-size: 11px;"><center><img src="' +
+                appConfig.hotspot.logo + '" alt="hotspot owner logo" height="' + appConfig.hotspot.logoWidth + '" width="' +
+                appConfig.hotspot.logoHeight  + '"><p>' + appStr.hotspotOwner + ' ' + appConfig.hotspot.name + '</center></div>',},
             { type: 'main', size: 200, },
-            { type: 'bottom', size: 150, style: bottom, content: '<div style="font-size: 11px;"><center><img src="' + info.isp.logo + '" alt="ISP logo" height="54" width="108"><p>' + appStr.provider + ' ' + info.isp.name + '</center></div>',},
+            { type: 'bottom', size: 150, style: bottom, content: '<div style="font-size: 11px;"><center><img src="' +
+                appConfig.isp.logo + '" alt="ISP logo" height="' + appConfig.isp.logoHeight + '" width="' +
+                appConfig.isp.logoWidth  + '"><p>' + appStr.provider + ' ' + appConfig.isp.name + '</center></div>',},
         ],
     });
 }
@@ -46,13 +51,12 @@ function mkRulesForm() {
         actions: {
             "reset": function () {
                          w2popup.open({
-                             title   : 'Popup Title HTML',
+                             title   : appStr.readRules,
                              body    : '<p>' + appStr.denyAccess,
                          });
                      },
             "save": function () {
                         mkPhoneForm();
-                        $('input[name="phone"]').mask('+7 (9ZZ) ZZZ-ZZ-ZZ', {placeholder: "9XX XXX XX XX", clearIfNotMatch: true, translation: { Z: {pattern: /\d/}, 9: {pattern: /9/}}});
                         w2ui['myLayout'].content('main', w2ui['formPhone']);
                     }
         },
@@ -88,9 +92,8 @@ function mkPhoneForm() {
         actions: {
             "reset": function () { this.clear(); },
             "save": function () {
-                        let phone = w2ui['formPhone'].record.phone.replace(/[^0-9]/g, "").replace(/^7/, "");
-                        let reg = /^\d{10}$/;
-                        if (phone != undefined && reg.test(phone)) {
+                        let phone = w2ui['formPhone'].record.phone.replace(/[^0-9]/g, "");
+                        if (phone != undefined) {
                             let params = {
                                 operation: "pass",
                                 login: phone,
@@ -98,7 +101,6 @@ function mkPhoneForm() {
                             $.post("/api1", params, function(data) {
                                 if (data.Error == 0) {
                                     mkPasswdForm(w2ui['formPhone'].record.phone);
-                                    $('input[name="pass"]').mask('00000', {placeholder: "XXXXX", clearIfNotMatch: true, });
                                     w2ui['myLayout'].content('main', w2ui['formPassword']);
                                 }
                                 else {
@@ -110,6 +112,7 @@ function mkPhoneForm() {
                     }
         },
     });
+    $('input[name="phone"]').mask(appConfig.phoneMask, {placeholder: appConfig.phonePlaceholder, clearIfNotMatch: true, translation: { Z: {pattern: /\d/}, 9: {pattern: /9/}}});
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -143,7 +146,7 @@ function mkPasswdForm(phone) {
             "reset": function () { this.clear(); },
             "save": function () {
                         let pass = w2ui['formPassword'].record.pass;
-                        let reg = /^\d{5}$/;
+                        let reg = /^\d{appConfig.passLength}$/;
                         if (pass != undefined && reg.test(pass)) {
                             alert(pass);
                         }
@@ -156,6 +159,14 @@ function mkPasswdForm(phone) {
             },
         },
     });
+
+    let m = "0";
+    let p = "X;
+    for (let i = 1; i < appConfig.passLength; i++) {
+        m = m + "0";
+        p = p + "X";
+    }
+    $('input[name="pass"]').mask(m, {placeholder: p, clearIfNotMatch: true, });
     w2ui['formPassword'].record.pass="";
 }
 
@@ -165,12 +176,19 @@ $(function(){
 
 $.post("/api1", {operation: "info"}, function(data) {
     if (data.Error == "0") {
-        info.isp.name = data.Isp.Name;
-        info.isp.logo = data.Isp.Logo;
-        info.hotspot.name = data.Hotspot.Name;
-        info.hotspot.logo = data.Hotspot.Logo;
-        info.hotspot.url_a = data.Hotspot.Url_a;
-        info.hotspot.url_5 = data.Hotspot.Url_r;
+        appConfig.passLength = data.passLength
+        appConfig.phoneMask = data.phoneMask
+        appConfig.phonePlaceholder = data.phonePlaceholder
+        appConfig.isp.name = data.isp.name;
+        appConfig.isp.logo = data.isp.logo;
+        appConfig.isp.logoHeight = data.isp.logoHeight;
+        appConfig.isp.logoWidth = data.isp.logoWidth;
+        appConfig.hotspot.name = data.hotspot.name;
+        appConfig.hotspot.logo = data.hotspot.logo;
+        appConfig.hotspot.logoHeight = data.hotspot.logoHeight;
+        appConfig.hotspot.logoWidth = data.hotspot.logoWidth;
+        appConfig.hotspot.urlA = data.hotspot.urlA;
+        appConfig.hotspot.urlR = data.hotspot.urlR;
 
         mkLayout();
         mkRulesForm();

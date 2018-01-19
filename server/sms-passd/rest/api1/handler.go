@@ -37,55 +37,39 @@ type hotspot struct {
 type configResp struct {
 	error int
 	errorMsg string
+	passLength int
+	phoneMask string
+	phonePlaceholder string
 	isp isp
 	hotspot hotspot
 }
 
-
-// SPA serves initial page
-func SPA(w http.ResponseWriter, r *http.Request) {
-	const loginHTML = `<!DOCTYPE HTML>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Hotspot login</title>
-    <link rel="stylesheet" type="text/css" href="/assets/w2ui/dist/w2ui.min.css" />
-    <script src="/assets/w2ui/libs/jquery/jquery-2.1.0.min.js"></script>
-    <script src="/assets/jQuery-Mask-Plugin/dist/jquery.mask.min.js"></script>
-    <script src="/assets/w2ui/dist/w2ui.min.js"></script>
-    <script src="/assets/app.js"></script>
-</head>
-<body>
-    <div id="root" style="width: 445px; height: 700px; display: block; margin-left: auto; margin-right: auto;"></div>
-</body>
-</html>`
-
-	fmt.Fprintf(w, loginHTML)
+type passResp struct {
+	error int
+	errorMsg string
 }
-	
-// Handler calls the right function to send message via specified channel.
+
+// Handler processes requests and responds with a JSON object.
 func Handler(w http.ResponseWriter, r *http.Request) {
 
-	//Must be exportable
-	type JResponse struct {
-		Error    int
-		ErrorMsg string
-	}
-
-	var myresp JResponse
 	ret := json.NewEncoder(w)
-
 	operation := r.FormValue("operation")
 
 	switch operation {
 	case "pass":
+		//Must be exportable (used for notifier response)
+		type JResponse struct {
+			Error    int
+			ErrorMsg string
+		}
+		var myresp passResp
 		login := r.FormValue("login")
 		re := regexp.MustCompile(`^\d{10}$`)
 		phones := re.FindAllString(login, 1)
 
 		if phones != nil && phones[0] != "" {
 			const letterBytes = "1234567890"
-			b := make([]byte, viper.GetInt("local.pass_length"))
+			b := make([]byte, viper.GetInt("sms-passd.pass_length"))
 			for i := range b {
 				b[i] = letterBytes[rand.Intn(len(letterBytes))]
 			}
@@ -96,9 +80,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			} else {
 
 				parameters := url.Values{
-					"channel": {"beeline"},
-					"recipients": {"+7" + phones[0]},
-					"message":     {string(b)},
+					"channel": {viper.GetInt("notifier.channel")},
+					"recipients": {"+" + phones[0]},
+					"message": {string(b)},
 				}
 
 				url := viper.GetString("notifier.url")
@@ -165,6 +149,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		}
 	case "config":
 		var myresp configResp
+                myresp.passLength = viper.GetInt("sms-passd.pass_length")
+                myresp.phoneMask = viper.GetInt("sms-passd.phone_mask")
+                myresp.phonePlaceholder = viper.GetInt("sms-passd.phone_placeholder")
 		myresp.isp.name = viper.GetString("isp.name")
 		myresp.isp.logo = viper.GetString("isp.logo")
 		myresp.isp.logoHeight = viper.GetInt("isp.logo_height")
@@ -182,22 +169,22 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		p := re.FindString(clientIp)
 		re = regexp.MustCompile(`\.`)
 		clientSection := re.ReplaceAllString(p, "_")
-		myresp.Hotspot.Name = viper.GetString(clientSection + ".name")
-		myresp.Hotspot.Logo = viper.GetString(clientSection + ".logo")
-		myresp.Hotspot.LogoWidth = viper.GetString(clientSection + ".logo_width")
-		myresp.Hotspot.LogoHeight = viper.GetString(clientSection + ".logo_height")
-		myresp.Hotspot.Url_a = viper.GetString(clientSection + ".url_a")
-		myresp.Hotspot.Url_r = viper.GetString(clientSection + ".url_r")
+		myresp.hotspot.name = viper.GetString(clientSection + ".name")
+		myresp.hotspot.logo = viper.GetString(clientSection + ".logo")
+		myresp.hotspot.logoWidth = viper.GetString(clientSection + ".logo_width")
+		myresp.hotspot.logoHeight = viper.GetString(clientSection + ".logo_height")
+		myresp.hotspot.urlA = viper.GetString(clientSection + ".url_a")
+		myresp.hotspot.urlR = viper.GetString(clientSection + ".url_r")
 
 
 		// check if all the data bits are ready and send JSON response
-		if (myresp.Isp.Name != "" && myresp.Isp.Logo != "" &&
-		    myresp.Hotspot.Name != "" && myresp.Hotspot.Logo != "" &&
-		    myresp.Hotspot.Url_a != "" && myresp.Hotspot.Url_r != "") {
-			myresp.Error = 0
+		if (myresp.isp.name != "" && myresp.isp.logo != "" &&
+		    myresp.hotspot.name != "" && myresp.hotspot.logo != "" &&
+		    myresp.hotspot.urlA != "" && myresp.hotspot.urlR != "") {
+			myresp.error = 0
 		} else {
-			myresp.Error = 1
-			myresp.ErrorMsg = "Some hotspot parameters are missing in config file"
+			myresp.error = 1
+			myresp.errorMsg = "Some hotspot parameters are missing in config file"
 		}
 		if err := ret.Encode(myresp); err != nil {
 			log.Error(err.Error())
