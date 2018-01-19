@@ -18,6 +18,29 @@ import (
 	"io/ioutil"
 )
 
+type isp struct {
+	name string
+	logo string
+	logoHeight int
+	logoWidth int
+}
+		
+type hotspot struct {
+	name string
+	logo string
+	logoHeight int
+	logoWidth int
+	urlA string
+	urlR string
+}
+		
+type configResp struct {
+	error int
+	errorMsg string
+	isp isp
+	hotspot hotspot
+}
+
 
 // SPA serves initial page
 func SPA(w http.ResponseWriter, r *http.Request) {
@@ -140,54 +163,42 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				log.Error(err.Error())
 			}
 		}
-	case "info":
-		type Isp struct {
-			Name string
-			Logo string
+	case "config":
+		var myresp configResp
+		myresp.isp.name = viper.GetString("isp.name")
+		myresp.isp.logo = viper.GetString("isp.logo")
+		myresp.isp.logoHeight = viper.GetInt("isp.logo_height")
+		myresp.isp.logoWidth = viper.GetInt("isp.logo_width")
+		
+
+		// figure out client prefix and get client configuration
+		header := viper.GetString("sms-passd.real_ip_header")
+		if header == "" || header == "none" {
+			clientIp := r.Header.Get(header) 
+		} else {
+			clientIp = r.RemoteAddr
 		}
-		
-		type Hotspot struct {
-			Name string
-			Logo string
-			Url_a string
-			Url_r string
-		}
-		
-		type Resp struct {
-			Error int
-			ErrorMsg string
-			Isp Isp
-			Hotspot Hotspot
-		}
-		var myresp Resp
-		myresp.Isp.Name = viper.GetString("isp.name")
-		myresp.Isp.Logo = viper.GetString("isp.logo")
-		
-		clientIp := r.Header.Get("X-Real-IP") 
-		
 		re := regexp.MustCompile(`^\d+\.\d+\.\d+`)
 		p := re.FindString(clientIp)
 		re = regexp.MustCompile(`\.`)
 		clientSection := re.ReplaceAllString(p, "_")
-		
-		log.Info("client IP: " + clientIp)
-		log.Info("prefix: " + p)
-		log.Info("client section: " + clientSection)
-		
 		myresp.Hotspot.Name = viper.GetString(clientSection + ".name")
 		myresp.Hotspot.Logo = viper.GetString(clientSection + ".logo")
+		myresp.Hotspot.LogoWidth = viper.GetString(clientSection + ".logo_width")
+		myresp.Hotspot.LogoHeight = viper.GetString(clientSection + ".logo_height")
 		myresp.Hotspot.Url_a = viper.GetString(clientSection + ".url_a")
 		myresp.Hotspot.Url_r = viper.GetString(clientSection + ".url_r")
 
+
+		// check if all the data bits are ready and send JSON response
 		if (myresp.Isp.Name != "" && myresp.Isp.Logo != "" &&
 		    myresp.Hotspot.Name != "" && myresp.Hotspot.Logo != "" &&
 		    myresp.Hotspot.Url_a != "" && myresp.Hotspot.Url_r != "") {
 			myresp.Error = 0
 		} else {
 			myresp.Error = 1
-			myresp.ErrorMsg = "Some parameters are missing"
+			myresp.ErrorMsg = "Some hotspot parameters are missing in config file"
 		}
-		
 		if err := ret.Encode(myresp); err != nil {
 			log.Error(err.Error())
 		}
