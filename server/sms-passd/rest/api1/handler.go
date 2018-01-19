@@ -17,35 +17,35 @@ import (
 	"strings"
 )
 
-type isp struct {
-	name       string
-	logo       string
-	logoHeight int
-	logoWidth  int
+type Isp struct {
+	Name       string
+	Logo       string
+	LogoHeight int
+	LogoWidth  int
 }
 
-type hotspot struct {
-	name       string
-	logo       string
-	logoHeight int
-	logoWidth  int
-	urlA       string
-	urlR       string
+type Hotspot struct {
+	Name       string
+	Logo       string
+	LogoHeight int
+	LogoWidth  int
+	UrlA       string
+	UrlR       string
 }
 
-type configResp struct {
-	error            int
-	errorMsg         string
-	passLength       int
-	phoneMask        string
-	phonePlaceholder string
-	isp              isp
-	hotspot          hotspot
+type ConfigResp struct {
+	Error            int
+	ErrorMsg         string
+	PassLength       int
+	PhoneMask        string
+	PhonePlaceholder string
+	Isp              isp
+	Hotspot          hotspot
 }
 
-type passResp struct {
-	error    int
-	errorMsg string
+type PassResp struct {
+	Error    int
+	ErrorMsg string
 }
 
 // Handler processes requests and responds with a JSON object.
@@ -61,7 +61,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			Error    int
 			ErrorMsg string
 		}
-		var myresp passResp
+		var myresp PassResp
 		login := r.FormValue("login")
 		re := regexp.MustCompile(`^\d{10}$`)
 		phones := re.FindAllString(login, 1)
@@ -147,14 +147,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	case "config":
-		var myresp configResp
-		myresp.passLength = viper.GetInt("sms-passd.pass_length")
-		myresp.phoneMask = viper.GetString("sms-passd.phone_mask")
-		myresp.phonePlaceholder = viper.GetString("sms-passd.phone_placeholder")
-		myresp.isp.name = viper.GetString("isp.name")
-		myresp.isp.logo = viper.GetString("isp.logo")
-		myresp.isp.logoHeight = viper.GetInt("isp.logo_height")
-		myresp.isp.logoWidth = viper.GetInt("isp.logo_width")
+		var myresp ConfigResp
+		myresp.PassLength = viper.GetInt("sms-passd.pass_length")
+		myresp.PhoneMask = viper.GetString("sms-passd.phone_mask")
+		myresp.PhonePlaceholder = viper.GetString("sms-passd.phone_placeholder")
+		myresp.Isp.Name = viper.GetString("isp.name")
+		myresp.Isp.Logo = viper.GetString("isp.logo")
+		myresp.Isp.LogoHeight = viper.GetInt("isp.logo_height")
+		myresp.Isp.LogoWidth = viper.GetInt("isp.logo_width")
 
 		// figure out client prefix and get client configuration
 		header := viper.GetString("sms-passd.real_ip_header")
@@ -168,23 +168,21 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		p := re.FindString(clientIp)
 		re = regexp.MustCompile(`\.`)
 		clientSection := re.ReplaceAllString(p, "_")
-		myresp.hotspot.name = viper.GetString(clientSection + ".name")
-		myresp.hotspot.logo = viper.GetString(clientSection + ".logo")
-		myresp.hotspot.logoWidth = viper.GetInt(clientSection + ".logo_width")
-		myresp.hotspot.logoHeight = viper.GetInt(clientSection + ".logo_height")
-		myresp.hotspot.urlA = viper.GetString(clientSection + ".url_a")
-		myresp.hotspot.urlR = viper.GetString(clientSection + ".url_r")
-		
-		log.Info("Header: " + header)
+		myresp.Hotspot.Name = viper.GetString(clientSection + ".name")
+		myresp.Hotspot.Logo = viper.GetString(clientSection + ".logo")
+		myresp.Hotspot.LogoWidth = viper.GetInt(clientSection + ".logo_width")
+		myresp.Hotspot.LogoHeight = viper.GetInt(clientSection + ".logo_height")
+		myresp.Hotspot.UrlA = viper.GetString(clientSection + ".url_a")
+		myresp.Hotspot.UrlR = viper.GetString(clientSection + ".url_r")
 		
 		// check if all the data bits are ready and send JSON response
-		if myresp.isp.name != "" && myresp.isp.logo != "" &&
-			myresp.hotspot.name != "" && myresp.hotspot.logo != "" &&
-			myresp.hotspot.urlA != "" && myresp.hotspot.urlR != "" {
-			myresp.error = 0
+		if myresp.Isp.Name != "" && myresp.Isp.Logo != "" &&
+			myresp.Hotspot.Name != "" && myresp.Hotspot.Logo != "" &&
+			myresp.Hotspot.UrlA != "" && myresp.Hotspot.UrlR != "" {
+			myresp.Error = 0
 		} else {
-			myresp.error = 1
-			myresp.errorMsg = "Some hotspot parameters are missing in config file"
+			myresp.Error = 1
+			myresp.ErrorMsg = "Some hotspot parameters are missing in config file"
 		}
 		if err := ret.Encode(myresp); err != nil {
 			log.Error(err.Error())
