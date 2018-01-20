@@ -25,6 +25,7 @@ type Isp struct {
 }
 
 type Hotspot struct {
+	Type       string
 	Name       string
 	Logo       string
 	LogoHeight int
@@ -171,6 +172,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		re = regexp.MustCompile(`\.`)
 		clientSection := re.ReplaceAllString(p, "_")
 		myresp.Hotspot.Name = viper.GetString(clientSection + ".name")
+		myresp.Hotspot.Type = viper.GetString(clientSection + ".type")
 		myresp.Hotspot.Logo = viper.GetString(clientSection + ".logo")
 		myresp.Hotspot.LogoWidth = viper.GetInt(clientSection + ".logo_width")
 		myresp.Hotspot.LogoHeight = viper.GetInt(clientSection + ".logo_height")
