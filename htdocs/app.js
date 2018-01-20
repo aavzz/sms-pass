@@ -165,8 +165,8 @@ function mkPasswdForm(phone) {
                                         title: appStr.userdata,
                                         body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: ' + phoneStripped +
                                                '<p>password: ' + pass +
-                                               '<p><auth_url: ' + appConfig.hotspot.urlA +
-                                               '<p><redirect_url: ' + appConfig.hotspot.urlR +
+                                               '<p>auth_url: ' + appConfig.hotspot.urlA +
+                                               '<p>redirect_url: ' + appConfig.hotspot.urlR +
                                                '</div>',
                                         width: 400,
                                         height: 150,
