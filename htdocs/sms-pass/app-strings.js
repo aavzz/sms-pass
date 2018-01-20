@@ -15,7 +15,7 @@ let appStrings = {
         userdata: "Данные пользователя",
         rules: `
 <p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">Правила пользования сетью Wi-Fi (WiFi Хотспот)
-<p style="line-height: 1.4; padding-bottom: 10px; font-weifht: bold;">1. Доступ к сети Интернет, посредством WiFi Хотспот, не является коммерческой услугой и предоставляется на безвозмездной основе.
+<p style="line-height: 1.4; padding-bottom: 10px; font-weifht: bold;">1. Доступ к сети Интернет посредством WiFi Хотспот не является коммерческой услугой и предоставляется на безвозмездной основе.
 <p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold">2. Пользователю Хотспота запрещено:
 <p style="line-height: 1.4; padding-bottom: 5px;">2.1. Осуществлять противоправную деятельность.
 <p style="line-height: 1.4; padding-bottom: 5px;">2.2. Распространять информацию, оскорбляющую честь, достоинство и деловую репутацию пользователей сети Интернет.
