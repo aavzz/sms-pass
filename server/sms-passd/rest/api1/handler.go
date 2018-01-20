@@ -178,7 +178,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		myresp.Hotspot.LogoHeight = viper.GetInt(clientSection + ".logo_height")
 		myresp.Hotspot.UrlA = viper.GetString(clientSection + ".url_a")
 		myresp.Hotspot.UrlR = viper.GetString(clientSection + ".url_r")
-		
+
 		// check if all the data bits are ready and send JSON response
 		if myresp.Redirect != "" {
 			myresp.Error = 0
