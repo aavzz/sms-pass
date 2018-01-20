@@ -5,12 +5,13 @@ if (appStr == undefined) {
     appStr = appStrings.en;
 }
 
-// 
 let appConfig = {
     passLength: 5,
     isp: {logoWidth: 100, logoHeight: 100,},
     hotspot: {logoWidth: 100, logoHeight: 100,},
 };
+
+let attempts = 3;
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -153,26 +154,45 @@ function mkPasswdForm(phone) {
                         let pass = w2ui['formPassword'].record.password;
                         let reg = new RegExp('^\\d{' + appConfig.passLength + '}$');
                         if (pass != undefined && reg.test(pass)) {
-                            switch (appConfig.hotspot.type) {
-                                case 'mikrotik':
-                                //cannot use save(), we need get request
-                                    window.location.replace(appConfig.hotspot.urlA + '?username=' +
+                            $.post("/api1", {'operation': 'checkpass', 'login': phoneStripped, 'pass': pass}, function(data) {
+                                if (data.Error == "0") {
+                                    switch (appConfig.hotspot.type) {
+                                    case 'mikrotik':
+                                        //cannot use save(), we need get request
+                                        window.location.replace(appConfig.hotspot.urlA + '?username=' +
                                                               phoneStripped + '&password=' + pass + '&dst=' +
                                                               appConfig.hotspot.urlR);
-                                break;
-                                case 'test':
-                                    w2popup.open({
-                                        title: appStr.userdata,
-                                        body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: ' + phoneStripped +
+                                    break;
+                                    case 'test':
+                                        w2popup.open({
+                                            title: appStr.userdata,
+                                            body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: ' + phoneStripped +
                                                '<p>password: ' + pass +
                                                '<p>auth_url: ' + appConfig.hotspot.urlA +
                                                '<p>redirect_url: ' + appConfig.hotspot.urlR +
                                                '</div>',
-                                        width: 300,
-                                        height: 180,
-                                        });
-                                break;
-                            }
+                                            width: 300,
+                                            height: 180,
+                                            });
+                                    break;
+                                    }
+                                }
+                                else {
+                                    w2popup.open({
+                                            title: appStr.enterPassword,
+                                            body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: ' + phoneStripped +
+                                               '<p>' + appStr.wrongPassword + '</div>',
+                                            width: 200,
+                                            height: 180,
+                                            });
+                                    if (attempts > 0) {
+                                        attempts--;    
+                                    }
+                                    else {
+                                        w2ui['myLayout'].content('main', w2ui['formRules']);
+                                    }
+                                }
+                            },"json");
                         }
                         else {
                             this.clear();
@@ -198,37 +218,36 @@ function mkPasswdForm(phone) {
 
 $(function(){
 
-$.post("/api1", {operation: "config"}, function(data) {
-    if (data.Error == "0") {
-        appConfig.redirect = data.Redirect
-        appConfig.passLength = data.PassLength
-        appConfig.phoneMask = data.PhoneMask
-        appConfig.phonePlaceholder = data.PhonePlaceholder
-        appConfig.isp.name = data.Isp.Name;
-        appConfig.isp.logo = data.Isp.Logo;
-        appConfig.isp.logoHeight = data.Isp.LogoHeight;
-        appConfig.isp.logoWidth = data.Isp.LogoWidth;
-        appConfig.hotspot.type = data.Hotspot.Type;
-        appConfig.hotspot.name = data.Hotspot.Name;
-        appConfig.hotspot.logo = data.Hotspot.Logo;
-        appConfig.hotspot.logoHeight = data.Hotspot.LogoHeight;
-        appConfig.hotspot.logoWidth = data.Hotspot.LogoWidth;
-        appConfig.hotspot.urlA = data.Hotspot.UrlA;
-        appConfig.hotspot.urlR = data.Hotspot.UrlR;
+    $.post("/api1", {operation: "config"}, function(data) {
+        if (data.Error == "0") {
+            appConfig.redirect = data.Redirect
+            appConfig.passLength = data.PassLength
+            appConfig.phoneMask = data.PhoneMask
+            appConfig.phonePlaceholder = data.PhonePlaceholder
+            appConfig.isp.name = data.Isp.Name;
+            appConfig.isp.logo = data.Isp.Logo;
+            appConfig.isp.logoHeight = data.Isp.LogoHeight;
+            appConfig.isp.logoWidth = data.Isp.LogoWidth;
+            appConfig.hotspot.type = data.Hotspot.Type;
+            appConfig.hotspot.name = data.Hotspot.Name;
+            appConfig.hotspot.logo = data.Hotspot.Logo;
+            appConfig.hotspot.logoHeight = data.Hotspot.LogoHeight;
+            appConfig.hotspot.logoWidth = data.Hotspot.LogoWidth;
+            appConfig.hotspot.urlA = data.Hotspot.UrlA;
+            appConfig.hotspot.urlR = data.Hotspot.UrlR;
 
-        if (appConfig.hotspot.name == "") {
-            window.location.replace(appConfig.redirect);
+            if (appConfig.hotspot.name == "") {
+                window.location.replace(appConfig.redirect);
+            }
+            else {
+                mkLayout();
+                mkRulesForm();
+                w2ui['myLayout'].content('main', w2ui['formRules']);
+            }
         }
         else {
-            mkLayout();
-            mkRulesForm();
-            w2ui['myLayout'].content('main', w2ui['formRules']);
+            alert(data.ErrorMsg);
         }
-    }
-    else {
-        alert(data.ErrorMsg);
-    }
-},"json");
-    
+    },"json");
 });
 
