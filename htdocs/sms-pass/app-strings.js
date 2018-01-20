@@ -13,6 +13,7 @@ let appStrings = {
         hotspotOwner: "WiFi Хотспот",
         provider: "Интернет-провайдер",
         userdata: "Данные пользователя",
+        wrongPassword: "Пароль введен неправильно, попробуйте еще раз",
         rules: `
 <p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">Правила пользования сетью Wi-Fi (WiFi Хотспот)
 <p style="line-height: 1.4; padding-bottom: 10px; font-weifht: bold;">1. Доступ к сети Интернет посредством WiFi Хотспот не является коммерческой услугой и предоставляется на безвозмездной основе.
@@ -45,6 +46,7 @@ let appStrings = {
         hotspotOwner: "WiFi hotspot",
         provider: "Internet service provider",
         userdata: "User data",
+        wrongPassword: "Password check failed",
         rules: `
 <p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">WiFi hotspot service conditions
 <p style="line-height: 1.4; padding-bottom: 10px; font-weifht: bold;">1. Internet access via this Wifi hotspot is provided free of charge.
@@ -77,6 +79,7 @@ let appStrings = {
         hotspotOwner: "WiFi hotspot",
         provider: "Proveedor de servicio internet",
         userdata: "Datos de usuario",
+        wrongPassword: "Contraseña incorrecta",
         rules: `
 <p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">Condiciones de servicio
 <p style="line-height: 1.4; padding-bottom: 10px; font-weifht: bold;">1. El acceso al Internet se otorga gratis.
