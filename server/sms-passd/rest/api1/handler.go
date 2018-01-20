@@ -148,6 +148,24 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				log.Error(err.Error())
 			}
 		}
+	case "checkpass":
+		var myresp PassResp
+		login := r.FormValue("login")
+		password := r.FormValue("pass")
+		err := db.CheckPass(login, password)
+		if err != nil {
+			myresp.Error = 1
+			myresp.ErrorMsg = "Password check failed"
+			if err := ret.Encode(myresp); err != nil {
+				log.Error(err.Error())
+			}
+		} else {
+			myresp.Error = 0
+			myresp.ErrorMsg = "Password check OK"
+			if err := ret.Encode(myresp); err != nil {
+				log.Error(err.Error())
+			}
+		}
 	case "config":
 		var myresp ConfigResp
 		myresp.PassLength = viper.GetInt("sms-passd.pass_length")
