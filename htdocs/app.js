@@ -153,8 +153,26 @@ function mkPasswdForm(phone) {
                         let pass = w2ui['formPassword'].record.password;
                         let reg = new RegExp('^\\d{' + appConfig.passLength + '}$');
                         if (pass != undefined && reg.test(pass)) {
-                            //cannot use save(), we need get request
-                            window.location.replace(appConfig.hotspot.urlA + '?username=' + phoneStripped + '&password=' + pass + '&dst=' + appConfig.hotspot.urlR);
+                            switch (appConfig.hotspot.type) {
+                                case 'mikrotik':
+                                //cannot use save(), we need get request
+                                    window.location.replace(appConfig.hotspot.urlA + '?username=' +
+                                                              phoneStripped + '&password=' + pass + '&dst=' +
+                                                              appConfig.hotspot.urlR);
+                                break;
+                                case: 'test':
+                                    w2popup.open({
+                                        title: appStr.authentication,
+                                        body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: ' + phoneStripped +
+                                               '<p>password: ' + password +
+                                               '<auth_url: ' + appConfig.hotspot.urlA +
+                                               '<redirect_url: ' + appConfig.hotspot.urlR +
+                                               '</div>',
+                                        width: 300,
+                                        height: 150,
+                                        });
+                                break;
+                            }
                         }
                         else {
                             this.clear();
@@ -190,6 +208,7 @@ $.post("/api1", {operation: "config"}, function(data) {
         appConfig.isp.logo = data.Isp.Logo;
         appConfig.isp.logoHeight = data.Isp.LogoHeight;
         appConfig.isp.logoWidth = data.Isp.LogoWidth;
+        appConfig.hotspot.type = data.Hotspot.Type;
         appConfig.hotspot.name = data.Hotspot.Name;
         appConfig.hotspot.logo = data.Hotspot.Logo;
         appConfig.hotspot.logoHeight = data.Hotspot.LogoHeight;
