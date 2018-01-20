@@ -8,6 +8,7 @@ import (
 	"github.com/aavzz/daemon/log"
 	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
+	"errors"
 )
 
 var dbh *sql.DB
@@ -69,11 +70,16 @@ func StorePass(login, pass string) error {
 }
 
 func CheckPass(login, password string) error{
-	rows, err := dbh.Query("select username from radcheck where username=$1 AND attribute='Cleartext-Password' AND op=':=' AND value=$2", login, password)
-	if err != nil || rows == nil {
-		return err
+	var username string
+	err := dbh.QueryRow("select username from radcheck where username=$1 AND attribute='Cleartext-Password' AND op=':=' AND value=$2", login, password).Scan(&username)
+	switch {
+	case err == sql.ErrNoRows:
+        	return errors.New("No rows found")
+	case err != nil:
+        	return err
+	default:
+        	return nil
 	}
-	return nil
 }
 
 // Close closes database connection
