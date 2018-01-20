@@ -69,7 +69,7 @@ func StorePass(login, pass string) error {
 }
 
 func CheckPass(login, password string) error{
-	rows, err := dbh.Exec("select username from radcheck where username=$1 AND attribute='Cleartext-Password' AND op=':=' AND value=$2", login, password)
+	rows, err := dbh.Query("select username from radcheck where username=$1 AND attribute='Cleartext-Password' AND op=':=' AND value=$2", login, password)
 	if err != nil || rows == nil {
 		return err
 	}
