@@ -183,7 +183,7 @@ function mkPasswdForm(phone) {
                                             body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: ' + phoneStripped +
                                                '<p>' + appStr.wrongPassword + '</div>',
                                             width: 200,
-                                            height: 180,
+                                            height: 80,
                                             });
                                     if (attempts > 0) {
                                         attempts--;    
