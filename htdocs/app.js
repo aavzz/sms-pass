@@ -168,8 +168,8 @@ function mkPasswdForm(phone) {
                                                '<p>auth_url: ' + appConfig.hotspot.urlA +
                                                '<p>redirect_url: ' + appConfig.hotspot.urlR +
                                                '</div>',
-                                        width: 400,
-                                        height: 150,
+                                        width: 300,
+                                        height: 180,
                                         });
                                 break;
                             }
