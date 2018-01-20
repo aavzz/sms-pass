@@ -178,17 +178,17 @@ function mkPasswdForm(phone) {
                                     }
                                 }
                                 else {
-                                    w2popup.open({
-                                            title: appStr.enterPassword,
-                                            body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: ' + phoneStripped +
-                                               '<p>' + appStr.wrongPassword + '</div>',
-                                            width: 200,
-                                            height: 80,
-                                            });
                                     if (attempts > 0) {
                                         attempts--;    
+                                        w2popup.open({
+                                            title: appStr.enterPassword,
+                                            body : '<div style="margin-left: 20px; margin-right: 20px;"><p>' + appStr.wrongPassword + '</div>',
+                                            width: 250,
+                                            height: 100,
+                                            });
                                     }
                                     else {
+                                        attempts = 3;
                                         w2ui['myLayout'].content('main', w2ui['formRules']);
                                     }
                                 }
