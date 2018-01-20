@@ -160,7 +160,7 @@ function mkPasswdForm(phone) {
                                                               phoneStripped + '&password=' + pass + '&dst=' +
                                                               appConfig.hotspot.urlR);
                                 break;
-                                case: 'test':
+                                case 'test':
                                     w2popup.open({
                                         title: appStr.userdata,
                                         body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: ' + phoneStripped +
