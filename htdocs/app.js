@@ -164,11 +164,11 @@ function mkPasswdForm(phone) {
                                     w2popup.open({
                                         title: appStr.userdata,
                                         body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: ' + phoneStripped +
-                                               '<p>password: ' + password +
-                                               '<auth_url: ' + appConfig.hotspot.urlA +
-                                               '<redirect_url: ' + appConfig.hotspot.urlR +
+                                               '<p>password: ' + pass +
+                                               '<p><auth_url: ' + appConfig.hotspot.urlA +
+                                               '<p><redirect_url: ' + appConfig.hotspot.urlR +
                                                '</div>',
-                                        width: 300,
+                                        width: 400,
                                         height: 150,
                                         });
                                 break;
