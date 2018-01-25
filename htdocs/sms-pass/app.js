@@ -22,8 +22,8 @@ function mkLayout() {
         name: 'myLayout',
         panels: [
             { type: 'top', size: 150, style: top, content: '<div style="font-size: 11px;"><center><img src="' +
-                appConfig.hotspot.logo + '" alt="hotspot owner logo" height="' + appConfig.hotspot.logoWidth + '" width="' +
-                appConfig.hotspot.logoHeight  + '"><p>' + appStr.hotspotOwner + ' ' + appConfig.hotspot.name + '</center></div>',},
+                appConfig.hotspot.logo + '" alt="hotspot owner logo" height="' + appConfig.hotspot.logoHeight + '" width="' +
+                appConfig.hotspot.logoWidth  + '"><p>' + appStr.hotspotOwner + ' ' + appConfig.hotspot.name + '</center></div>',},
             { type: 'main', size: 200, },
             { type: 'bottom', size: 150, style: bottom, content: '<div style="font-size: 11px;"><center><img src="' +
                 appConfig.isp.logo + '" alt="ISP logo" height="' + appConfig.isp.logoHeight + '" width="' +
