@@ -42,7 +42,7 @@ function mkRulesForm() {
         header: appStr.readRules,
         formHTML: 
             '<div class="w2ui-page page-0">'+
-            '    <div style="width: 380px; height: 50px; font-size: 12px; display: block; margin-left: auto; margin-right: auto;">'+
+            '    <div style="width: 380px; height: 50px; font-size: 13px; display: block; margin-left: auto; margin-right: auto;">'+
             '        ' + appStr.rules + 
             '    </div>'+
             '</div>'+
@@ -76,7 +76,7 @@ function mkPhoneForm() {
         header: appStr.enterPhoneNumber,
         formHTML: 
             '<div class="w2ui-page page-0">'+
-            '    <div style="width: 380px; height: 50px; font-size: 12px; display: block; margin-left: auto; margin-right: auto;">'+
+            '    <div style="width: 380px; height: 50px; font-size: 13px; display: block; margin-left: auto; margin-right: auto;">'+
             '        <p style="line-height: 1.4;">' + appStr.enterPhoneNumber + '.' +
             '        <p style="line-height: 1.4;">' + appStr.passwordWillBeSent + '.' +
             '    </div>'+
@@ -129,7 +129,7 @@ function mkPasswdForm(phone) {
         url : 'http:/10.15.55.1/login',
         formHTML:
             '<div class="w2ui-page page-0">'+
-            '    <div style="width: 380px; height: 50px; font-size: 12px; display: block; margin-left: auto; margin-right: auto;">'+
+            '    <div style="width: 380px; height: 50px; font-size: 13px; display: block; margin-left: auto; margin-right: auto;">'+
             '        <p style="line-height: 1.4;">' + appStr.enterPassword + '.'+
             '        <p style="line-height: 1.4;">' + appStr.passwordWasSent + ' ' + phone + '.'+
             '    </div>'+
