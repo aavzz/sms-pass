@@ -85,7 +85,7 @@ function mkPhoneForm() {
                         if (phone != undefined && reg.test(phone)) {
                             let params = {
                                 operation: "pass",
-                                login: phone,
+                                login: '+' + phone,
                             }
                             $.post("/api1", params, function(data) {
                                 if (data.Error == 0) {
