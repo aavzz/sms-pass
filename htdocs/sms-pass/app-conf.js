@@ -1,7 +1,7 @@
 // User-configurable part
 let appConfig = {
     attempts: 3,
-    passLength: 5,
+    passLength: 4,
     phoneLength: 11,
     phoneMask: "+7 (9ZZ) ZZZ-ZZ-ZZ",
     phonePlaceholder: "9XX XXX XX XX",
