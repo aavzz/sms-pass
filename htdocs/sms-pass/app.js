@@ -81,7 +81,8 @@ function mkPhoneForm() {
             "reset": function () { this.clear(); },
             "save": function () {
                         let phone = w2ui['formPhone'].record.phone.replace(/[^0-9]/g, "");
-                        if (phone != undefined) {
+                        let reg = new RegExp('^\\d{' + appConfig.phoneLength + '}$');
+                        if (phone != undefined && reg.test(phone)) {
                             let params = {
                                 operation: "pass",
                                 login: phone,
@@ -96,6 +97,9 @@ function mkPhoneForm() {
                                     this.clear();
                                 }
                             },"json")
+                        }
+                        else {
+                            this.clear();
                         }
                     }
         },
