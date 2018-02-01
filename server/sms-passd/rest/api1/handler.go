@@ -8,6 +8,7 @@ import (
 	"github.com/aavzz/daemon/log"
 	"github.com/aavzz/notifier"
 	"github.com/aavzz/sms-pass/server/sms-passd/db"
+	"github.com/aavzz/sms-pass/server/sms-passd/timer"
 	"github.com/spf13/viper"
 	"math/rand"
 	"net/http"
@@ -160,10 +161,13 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	case "notify":
-		login := r.FormValue("login")
-		err := notifier.NotifySMS(viper.GetString("notifier.url"), viper.GetString("notifier.channel"), viper.GetString("notifier.contact"), "Auth: fauled for "+login)
-		if err != nil {
-			log.Error(err.Error())
+		if timer.NotificationAllowed == true {
+			timer.NotificationAllowed = false
+			login := r.FormValue("login")
+			err := notifier.NotifySMS(viper.GetString("notifier.url"), viper.GetString("notifier.channel"), viper.GetString("notifier.contact"), "Auth: fauled for "+login)
+			if err != nil {
+				log.Error(err.Error())
+			}
 		}
 	}
 }
