@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"github.com/spf13/viper"
+	"github.com/aavzz/daemon/log"
 	"io/ioutil"
 	"regexp"
 )
@@ -24,6 +25,7 @@ func spa(w http.ResponseWriter, r *http.Request) {
 
 	startPage, err := ioutil.ReadFile(viper.GetString(clientSection+".assets") + "/spa.html")
 	if err != nil {
+		log.Error(err.Error())
 		http.Redirect(w, r, viper.GetString("sms-passd.redirect"), 301)
 	}
 
