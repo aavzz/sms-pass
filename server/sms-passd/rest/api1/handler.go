@@ -83,6 +83,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				log.Error(err.Error())
 			} else {
+				log.Info(phones[0])
 				err := notifier.NotifySMS(viper.GetString("notifier.url"), viper.GetString("notifier.channel"), phones[0], string(b))
 				if err != nil {
 					myresp.Error = 1
