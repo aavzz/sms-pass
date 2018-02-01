@@ -3,6 +3,9 @@ package rest
 import (
 	"fmt"
 	"net/http"
+	"github.com/spf13/viper"
+	"io/ioutil"
+	"regexp"
 )
 
 func spa(w http.ResponseWriter, r *http.Request) {
