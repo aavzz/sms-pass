@@ -70,7 +70,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	case "pass":
 		var myresp PassResp
 		login := r.FormValue("login")
-		re := regexp.MustCompile(`^\d+$`)
+		re := regexp.MustCompile(`^\+\d+$`)
 		phones := re.FindAllString(login, 1)
 		if phones != nil && phones[0] != "" {
 			const letterBytes = "1234567890"
