@@ -84,7 +84,7 @@ func CheckPass(login, password string) error {
 
 // CheckSession returns the number of sessions currently open for the user
 func CheckSession(login string) (int, error) {
-	var c string
+	var c int64
 	err := dbh.QueryRow("select count(username) c from radacct where username=$1 AND acctstoptime is null", login).Scan(&c)
 	switch {
 	case err == sql.ErrNoRows:
