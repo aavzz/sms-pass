@@ -114,7 +114,6 @@ function mkPasswdForm(phone) {
     $('#formPassword').w2form({
         name   : 'formPassword',
         header   : appStr.enterPassword,
-        url : 'http:/10.15.55.1/login',
         formHTML:
             '<div class="w2ui-page page-0">'+
             '    <div style="width: 380px; height: 50px; font-size: 14px; display: block; margin-left: auto; margin-right: auto; margin-top: 20px;">'+
