@@ -10,6 +10,7 @@ import (
 	"github.com/aavzz/daemon/signal"
 	"github.com/aavzz/sms-pass/server/sms-passd/db"
 	"github.com/aavzz/sms-pass/server/sms-passd/rest"
+	"github.com/aavzz/sms-pass/server/sms-passd/timer"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"
@@ -54,6 +55,7 @@ func smspassdCommand(cmd *cobra.Command, args []string) {
 			os.Exit(0)
 		})
 	}
+	go timer.AllowNotification()
 	rest.InitHttp()
 }
 
