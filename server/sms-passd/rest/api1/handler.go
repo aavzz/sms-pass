@@ -4,18 +4,14 @@ Package api1 implements version 1 of sms-passd API.
 package api1
 
 import (
-	"crypto/tls"
 	"encoding/json"
 	"github.com/aavzz/daemon/log"
 	"github.com/aavzz/notifier"
 	"github.com/aavzz/sms-pass/server/sms-passd/db"
 	"github.com/spf13/viper"
-	"io/ioutil"
 	"math/rand"
 	"net/http"
-	"net/url"
 	"regexp"
-	"strings"
 )
 
 type Isp struct {
@@ -87,7 +83,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				log.Error(err.Error())
 			} else {
-				err := notifier.NotifySMS(viper.Getstring("notifier.url"), viper.GetString("notifier.channel"), phones[0], string(b))
+				err := notifier.NotifySMS(viper.GetString("notifier.url"), viper.GetString("notifier.channel"), phones[0], string(b))
 				if err != nil {
 					myresp.Error = 1
 					myresp.ErrorMsg = err.Error()
@@ -130,11 +126,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 					log.Error(err.Error())
 				}
 			} else {
-				allowedSessions = viper.GetString(clientSection + ".sessions")
+				allowedSessions := viper.GetString(clientSection + ".sessions")
 
 				if sessions > allowedSessions {
 					// this should never happen
-					err := notifier.NotifySMS(viper.Getstring("notifier.url"), viper.GetString("notifier.channel"), viper.GetString("notifier.contact"), "sessions > allowedSessions for "+login)
+					err := notifier.NotifySMS(viper.GetString("notifier.url"), viper.GetString("notifier.channel"), viper.GetString("notifier.contact"), "sessions > allowedSessions for "+login)
 					if err != nil {
 						myresp.Error = 1
 						myresp.ErrorMsg = err.Error()
