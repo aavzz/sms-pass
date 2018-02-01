@@ -2,8 +2,8 @@
 let appConfig = {
     attempts: 3,
     passLength: 5,
-    phoneMask: "+7 (9ZZ) ZZZ-ZZ-ZZ"
-    phonePlaceholder: "9XX XXX XX XX"
+    phoneMask: "+7 (9ZZ) ZZZ-ZZ-ZZ",
+    phonePlaceholder: "9XX XXX XX XX",
     isp: {
         name: "ISP name",
         logo: "path to ISP logo",
