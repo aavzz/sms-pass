@@ -141,19 +141,19 @@ function mkPasswdForm(phone) {
                         let pass = w2ui['formPassword'].record.password;
                         let reg = new RegExp('^\\d{' + appConfig.passLength + '}$');
                         if (pass != undefined && reg.test(pass)) {
-                            $.post("/api1", {'operation': 'checkpass', 'login': phoneStripped, 'pass': pass}, function(data) {
+                            $.post("/api1", {'operation': 'checkpass', 'login': '+' + phoneStripped, 'pass': pass}, function(data) {
                                 if (data.Error == "0") {
                                     switch (appConfig.hotspot.type) {
                                     case 'mikrotik':
                                         //cannot use save(), we need get request
-                                        window.location.replace(appConfig.hotspot.urlA + '?username=' +
+                                        window.location.replace(appConfig.hotspot.urlA + '?username=%2B' +
                                                               phoneStripped + '&password=' + pass + '&dst=' +
                                                               appConfig.hotspot.urlR);
                                     break;
                                     case 'test':
                                         w2popup.open({
                                             title: appStr.userdata,
-                                            body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: ' + phoneStripped +
+                                            body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: +' + phoneStripped +
                                                '<p>password: ' + pass +
                                                '<p>auth_url: ' + appConfig.hotspot.urlA +
                                                '<p>redirect_url: ' + appConfig.hotspot.urlR +
