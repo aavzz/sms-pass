@@ -80,26 +80,28 @@ function mkPhoneForm() {
         actions: {
             "reset": function () { this.clear(); },
             "save": function () {
-                        let phone = w2ui['formPhone'].record.phone.replace(/[^0-9]/g, "");
-                        let reg = new RegExp('^\\d{' + appConfig.phoneLength + '}$');
-                        if (phone != undefined && reg.test(phone)) {
-                            let params = {
-                                operation: "pass",
-                                login: '+' + phone,
+                        if ( w2ui['formPhone'].record.phone != undefined) {
+                            let phone = w2ui['formPhone'].record.phone.replace(/[^0-9]/g, "");
+                            let reg = new RegExp('^\\d{' + appConfig.phoneLength + '}$');
+                            if (phone != undefined && reg.test(phone)) {
+                                let params = {
+                                    operation: "pass",
+                                    login: '+' + phone,
+                                }
+                                $.post("/api1", params, function(data) {
+                                    if (data.Error == 0) {
+                                        mkPasswdForm(w2ui['formPhone'].record.phone);
+                                        w2ui['myLayout'].content('main', w2ui['formPassword']);
+                                    }
+                                    else {
+                                        alert("Failed to send password")
+                                        this.clear();
+                                    }
+                                },"json")
                             }
-                            $.post("/api1", params, function(data) {
-                                if (data.Error == 0) {
-                                    mkPasswdForm(w2ui['formPhone'].record.phone);
-                                    w2ui['myLayout'].content('main', w2ui['formPassword']);
-                                }
-                                else {
-                                    alert("Failed to send password")
-                                    this.clear();
-                                }
-                            },"json")
-                        }
-                        else {
-                            this.clear();
+                            else {
+                                this.clear();
+                            }
                         }
                     }
         },
@@ -161,6 +163,8 @@ function mkPasswdForm(phone) {
                                             height: 180,
                                             });
                                     break;
+                                    default:
+                                            alert ("Unknown device type")
                                     }
                                 }
                                 else {
