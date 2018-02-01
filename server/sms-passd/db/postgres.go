@@ -71,12 +71,16 @@ func StorePass(login, pass string) error {
 
 // CheckPass checks correctness of login and password
 func CheckPass(login, password string) error {
+	log.Info(login)
+	log.Info(password)
 	var username string
 	err := dbh.QueryRow("select username from radcheck where username=$1 AND attribute='Cleartext-Password' AND op=':=' AND value=$2", login, password).Scan(&username)
 	switch {
 	case err == sql.ErrNoRows:
+		log.Error("No rows found")
 		return errors.New("No rows found")
 	case err != nil:
+		log.Error(er.Error())
 		return err
 	}
 	return nil
