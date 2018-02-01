@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"github.com/spf13/viper"
-	"github.com/aavzz/daemon/log"
 	"io/ioutil"
 	"regexp"
 )
