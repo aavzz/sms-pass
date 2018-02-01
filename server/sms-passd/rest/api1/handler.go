@@ -126,7 +126,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 					log.Error(err.Error())
 				}
 			} else {
-				allowedSessions := viper.GetString(clientSection + ".sessions")
+				allowedSessions := viper.GetInt64(clientSection + ".sessions")
 
 				if sessions > allowedSessions {
 					// this should never happen
