@@ -23,9 +23,8 @@ func spa(w http.ResponseWriter, r *http.Request) {
 	re = regexp.MustCompile(`\.`)
 	clientSection := re.ReplaceAllString(p, "_")
 
-	startPage, err := ioutil.ReadFile(viper.GetString(clientSection+".assets") + "/spa.html")
+	startPage, err := ioutil.ReadFile(viper.GetString("sms-passd.assets") + "/" + viper.GetString(clientSection+".assets") + "/spa.html")
 	if err != nil {
-		log.Error(err.Error())
 		http.Redirect(w, r, viper.GetString("sms-passd.redirect"), 301)
 	}
 
