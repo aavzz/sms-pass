@@ -159,5 +159,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		}
+	case "notify":
+		login := r.FormValue("login")
+		err := notifier.NotifySMS(viper.GetString("notifier.url"), viper.GetString("notifier.channel"), viper.GetString("notifier.contact"), "Auth: fauled for "+login)
+		if err != nil {
+			log.Error(err.Error())
+		}
 	}
 }
