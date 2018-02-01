@@ -1,19 +1,3 @@
-// Setup UI language
-let language = navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage;
-let appStr = appStrings[language.replace(/-.*$/, "")];
-if (appStr == undefined) {
-    appStr = appStrings.en;
-}
-
-let appConfig = {
-    passLength: 5,
-    isp: {logoWidth: 100, logoHeight: 100,},
-    hotspot: {logoWidth: 100, logoHeight: 100,},
-};
-
-let attempts = 3;
-
-////////////////////////////////////////////////////////////////////////
 
 function mkLayout() {
     let top = 'background-color: #ffffff;';
@@ -76,13 +60,13 @@ function mkPhoneForm() {
         header: appStr.enterPhoneNumber,
         formHTML: 
             '<div class="w2ui-page page-0">'+
-            '    <div style="width: 380px; height: 50px; font-size: 13px; display: block; margin-left: auto; margin-right: auto;">'+
-            '        <p style="line-height: 1.4;">' + appStr.enterPhoneNumber + '.' +
-            '        <p style="line-height: 1.4;">' + appStr.passwordWillBeSent + '.' +
+            '    <div style="width: 380px; height: 50px; font-size: 14px; display: block; margin-left: auto; margin-right: auto; margin-top: 20px;">'+
+            '        <p style="line-height: 1.4;">' + appStr.enterPhoneNumber + '.</p>' +
+            '        <p style="line-height: 1.4;">' + appStr.passwordWillBeSent + '.</p>' +
             '    </div>'+
             '    <div class="w2ui-field">'+
-            '        <div>'+
-            '            <input id="p2" class="input-phone" name="phone" maxlength="15" size="15"/>'+
+            '        <div style="margin-left: 95px;">'+
+            '            <input id="p2" class="input-phone" style="margin-top: 60px; font-size: 20px;" name="phone" maxlength="15" size="15"/>'+
             '        </div>'+
             '    </div>'+
             '</div>'+
@@ -129,14 +113,13 @@ function mkPasswdForm(phone) {
         url : 'http:/10.15.55.1/login',
         formHTML:
             '<div class="w2ui-page page-0">'+
-            '    <div style="width: 380px; height: 50px; font-size: 13px; display: block; margin-left: auto; margin-right: auto;">'+
-            '        <p style="line-height: 1.4;">' + appStr.enterPassword + '.'+
-            '        <p style="line-height: 1.4;">' + appStr.passwordWasSent + ' ' + phone + '.'+
+            '    <div style="width: 380px; height: 50px; font-size: 14px; display: block; margin-left: auto; margin-right: auto; margin-top: 20px;">'+
+            '        <p style="line-height: 1.4;">' + appStr.enterPassword + '.</p>'+
+            '        <p style="line-height: 1.4;">' + appStr.passwordWasSent + ' ' + phone + '.</p>'+
             '    </div>'+
             '    <div class="w2ui-field">'+
-            '        <div>'+
-            '            <input id="p3" class="input-phone" name="password" maxlength="15" size="15"/>'+
-            '            <input type="hidden" name="dst" value="https://www.telixnet.ru"/>'+
+            '        <div style="margin-left: 95px;">'+
+            '            <input id="p3" class="input-phone" name="password" style="margin-top: 60px; font-size: 20px;" maxlength="15" size="15"/>'+
             '        </div>'+
             '    </div>'+
             '</div>'+
@@ -178,8 +161,8 @@ function mkPasswdForm(phone) {
                                     }
                                 }
                                 else {
-                                    if (attempts > 0) {
-                                        attempts--;    
+                                    if (appConfig.attempts > 0) {
+                                        appConfig.attempts--;    
                                         w2popup.open({
                                             title: appStr.enterPassword,
                                             body : '<div style="margin-left: 20px; margin-right: 20px;"><p>' + appStr.wrongPassword + '</div>',
@@ -188,7 +171,7 @@ function mkPasswdForm(phone) {
                                             });
                                     }
                                     else {
-                                        attempts = 3;
+                                        appConfig.attempts = 3;
                                         w2ui['myLayout'].content('main', w2ui['formRules']);
                                     }
                                 }
@@ -217,37 +200,8 @@ function mkPasswdForm(phone) {
 ////////////////////////////////////////////////////////////////////////
 
 $(function(){
-
-    $.post("/api1", {operation: "config"}, function(data) {
-        if (data.Error == "0") {
-            appConfig.redirect = data.Redirect
-            appConfig.passLength = data.PassLength
-            appConfig.phoneMask = data.PhoneMask
-            appConfig.phonePlaceholder = data.PhonePlaceholder
-            appConfig.isp.name = data.Isp.Name;
-            appConfig.isp.logo = data.Isp.Logo;
-            appConfig.isp.logoHeight = data.Isp.LogoHeight;
-            appConfig.isp.logoWidth = data.Isp.LogoWidth;
-            appConfig.hotspot.type = data.Hotspot.Type;
-            appConfig.hotspot.name = data.Hotspot.Name;
-            appConfig.hotspot.logo = data.Hotspot.Logo;
-            appConfig.hotspot.logoHeight = data.Hotspot.LogoHeight;
-            appConfig.hotspot.logoWidth = data.Hotspot.LogoWidth;
-            appConfig.hotspot.urlA = data.Hotspot.UrlA;
-            appConfig.hotspot.urlR = data.Hotspot.UrlR;
-
-            if (appConfig.hotspot.name == "") {
-                window.location.replace(appConfig.redirect);
-            }
-            else {
-                mkLayout();
-                mkRulesForm();
-                w2ui['myLayout'].content('main', w2ui['formRules']);
-            }
-        }
-        else {
-            alert(data.ErrorMsg);
-        }
-    },"json");
+    mkLayout();
+    mkRulesForm();
+    w2ui['myLayout'].content('main', w2ui['formRules']);
 });
 

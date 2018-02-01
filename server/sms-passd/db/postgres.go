@@ -5,10 +5,10 @@ package db
 
 import (
 	"database/sql"
+	"errors"
 	"github.com/aavzz/daemon/log"
 	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
-	"errors"
 )
 
 var dbh *sql.DB
@@ -69,17 +69,30 @@ func StorePass(login, pass string) error {
 	return nil
 }
 
-func CheckPass(login, password string) error{
+// CheckPass checks correctness of login and password
+func CheckPass(login, password string) error {
 	var username string
 	err := dbh.QueryRow("select username from radcheck where username=$1 AND attribute='Cleartext-Password' AND op=':=' AND value=$2", login, password).Scan(&username)
 	switch {
 	case err == sql.ErrNoRows:
-        	return errors.New("No rows found")
+		return errors.New("No rows found")
 	case err != nil:
-        	return err
-	default:
-        	return nil
+		return err
 	}
+	return nil
+}
+
+// CheckSession returns the number of sessions currently open for the user
+func CheckSession(login string) (int, error) {
+	var c string
+	err := dbh.QueryRow("select count(username) c from radacct where username=$1 AND acctstoptime is null", login).Scan(&c)
+	switch {
+	case err == sql.ErrNoRows:
+		return 0, nil
+	case err != nil:
+		return 0, err
+	}
+	return c, nil
 }
 
 // Close closes database connection
