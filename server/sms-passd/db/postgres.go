@@ -80,7 +80,7 @@ func CheckPass(login, password string) error {
 		log.Error("No rows found")
 		return errors.New("No rows found")
 	case err != nil:
-		log.Error(er.Error())
+		log.Error(err.Error())
 		return err
 	}
 	return nil
