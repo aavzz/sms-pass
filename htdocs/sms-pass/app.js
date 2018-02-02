@@ -6,12 +6,17 @@ function mkLayout() {
         name: 'myLayout',
         panels: [
             { type: 'top', size: 150, style: top, content: '<div style="font-size: 11px;"><center><img src="' +
-                appConfig.hotspot.logo + '" alt="hotspot owner logo" height="' + appConfig.hotspot.logoHeight + '" width="' +
-                appConfig.hotspot.logoWidth  + '"><p>' + appStr.hotspotOwner + ' ' + appConfig.hotspot.name + '</center></div>',},
+                appConfig.hotspot.logo + '" alt="hotspot owner logo" height="' +
+                appConfig.hotspot.logoHeight + '" width="' +
+                appConfig.hotspot.logoWidth  + '"><p>' +
+                appStr.hotspotOwner + ' ' +
+                appConfig.hotspot.name + '</center></div>',},
             { type: 'main', size: 200, },
             { type: 'bottom', size: 150, style: bottom, content: '<div style="font-size: 11px;"><center><img src="' +
-                appConfig.isp.logo + '" alt="ISP logo" height="' + appConfig.isp.logoHeight + '" width="' +
-                appConfig.isp.logoWidth  + '"><p>' + appStr.provider + ' ' +
+                appConfig.isp.logo + '" alt="ISP logo" height="' +
+                appConfig.isp.logoHeight + '" width="' +
+                appConfig.isp.logoWidth  + '"><p>' +
+                appStr.provider + ' ' +
                 appConfig.isp.name + '<p style="font-size: 9px;">sms-pass by Alex Zimnitsky</center></div>',},
         ],
     });
@@ -35,7 +40,7 @@ function mkRulesForm() {
             '   <button class="btn btn-green" name="save">' + appStr.agree + '</button>'+
             '</div>',
         actions: {
-            "reset": function () {
+            "reset": function() {
                          w2popup.open({
                              title: appStr.readRules,
                              body : '<div style="margin-left: 20px; margin-right: 20px;"><p>' + appStr.denyAccess + '</div>',
@@ -43,7 +48,7 @@ function mkRulesForm() {
                              height: 150,
                          });
                      },
-            "save": function () {
+            "save": function() {
                         mkPhoneForm();
                         w2ui['myLayout'].content('main', w2ui['formPhone']);
                     }
@@ -78,9 +83,9 @@ function mkPhoneForm() {
             { name: 'phone', type: 'text', },
         ],
         actions: {
-            "reset": function () { this.clear(); },
-            "save": function () {
-                        if ( w2ui['formPhone'].record.phone != undefined) {
+            "reset": function() { this.clear(); },
+            "save": function() {
+                        if (w2ui['formPhone'].record.phone != undefined) {
                             let phone = w2ui['formPhone'].record.phone.replace(/[^0-9]/g, "");
                             let reg = new RegExp('^\\d{' + appConfig.phoneLength + '}$');
                             if (phone != undefined && reg.test(phone)) {
@@ -94,7 +99,12 @@ function mkPhoneForm() {
                                         w2ui['myLayout'].content('main', w2ui['formPassword']);
                                     }
                                     else {
-                                        alert("Failed to send password")
+                                        w2popup.open({
+                                            title: appStr.readRules,
+                                            body : '<div style="margin-left: 20px; margin-right: 20px;"><p>' + appStr.passSendFail + '</div>',
+                                            width: 300,
+                                            height: 150,
+                                        });
                                         this.clear();
                                     }
                                 },"json")
