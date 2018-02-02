@@ -15,7 +15,7 @@ var NotificationAllowed = true
 // AllowNotification resets NotificationAllowed to `true` every hour
 func AllowNotification() {
 	for {
-		time.Sleep(viper.GetInt("notifier.reset_interval") * time.Second)
+		time.Sleep(time.Duration(viper.GetInt("notifier.reset_interval")) * time.Second)
 		NotificationAllowed = true
 	}
 }
