@@ -130,23 +130,23 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 				if sessions > allowedSessions {
 					// this should never happen
-			                if timer.NotificationAllowed == true {
-			                    timer.NotificationAllowed = false
-					    err := notifier.NotifySMS(viper.GetString("notifier.url"), viper.GetString("notifier.channel"), viper.GetString("notifier.contact"), "sessions > allowedSessions for "+login)
-					    if err != nil {
-						myresp.Error = 2
-						myresp.ErrorMsg = err.Error()
-						if err := ret.Encode(myresp); err != nil {
-							log.Error(err.Error())
-				                }
-					    } else {
-						myresp.Error = 2
-						myresp.ErrorMsg = "sessions > allowedSessions for " + login
-						if err := ret.Encode(myresp); err != nil {
-							log.Error(err.Error())
+					if timer.NotificationAllowed == true {
+						timer.NotificationAllowed = false
+						err := notifier.NotifySMS(viper.GetString("notifier.url"), viper.GetString("notifier.channel"), viper.GetString("notifier.contact"), "sessions > allowedSessions for "+login)
+						if err != nil {
+							myresp.Error = 2
+							myresp.ErrorMsg = err.Error()
+							if err := ret.Encode(myresp); err != nil {
+								log.Error(err.Error())
+							}
+						} else {
+							myresp.Error = 2
+							myresp.ErrorMsg = "sessions > allowedSessions for " + login
+							if err := ret.Encode(myresp); err != nil {
+								log.Error(err.Error())
+							}
+
 						}
-					
-					    }
 					}
 				} else if sessions == allowedSessions {
 					myresp.Error = 2
