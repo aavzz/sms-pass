@@ -172,7 +172,6 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	case "notify":
 		if timer.NotificationAllowed == true {
 			timer.NotificationAllowed = false
-			login := r.FormValue("login")
 			err := notifier.NotifySMS(viper.GetString("notifier.url"), viper.GetString("notifier.channel"), viper.GetString("notifier.contact"), "Hotspot: auth failed for " + clientIp)
 			if err != nil {
 				log.Error(err.Error())
