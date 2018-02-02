@@ -106,7 +106,6 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				log.Error(err.Error())
 			}
 		}
-
 	case "checkpass":
 		var myresp PassResp
 		login := r.FormValue("login")
