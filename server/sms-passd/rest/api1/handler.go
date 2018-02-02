@@ -172,11 +172,22 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		if timer.NotificationAllowed == true {
 			timer.NotificationAllowed = false
 			login := r.FormValue("login")
-			err := notifier.NotifySMS(viper.GetString("notifier.url"), viper.GetString("notifier.channel"), viper.GetString("notifier.contact"), "Auth: fauled for "+login)
+			err := notifier.NotifySMS(viper.GetString("notifier.url"), viper.GetString("notifier.channel"), viper.GetString("notifier.contact"), "Hotspot: auth failed for " + clientIp)
 			if err != nil {
 				log.Error(err.Error())
 			}
 		}
+		page := `<html>
+		<head><head>
+		<body>
+		<div>
+		<p>Произошла ужасная ошибка</>
+		<p>Мы уже работаем над ee устранением</p>
+		<div>
+		</body>
+		</html>
+		`
+		fmt.Fprintf(w, page)
 	default:
 		http.Redirect(w, r, viper.GetString("sms-passd.redirect"), 301)
 	}
