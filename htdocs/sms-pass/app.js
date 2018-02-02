@@ -96,7 +96,7 @@ function mkPhoneForm() {
                                 $.post("/api1", params, function(data) {
                                     if (data.Error == 0) {
                                         if (w2ui['formPassword'] != undefined) {
-                                            delete w2ui['formPassword'];
+                                            w2ui['formPassword'].destroy();
                                         }
                                         mkPasswdForm(w2ui['formPhone'].record.phone);
                                         w2ui['myLayout'].content('main', w2ui['formPassword']);
