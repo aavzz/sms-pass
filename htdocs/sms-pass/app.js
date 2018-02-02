@@ -177,7 +177,7 @@ function mkPasswdForm(phone) {
                                 else if (data.Error == "2") {
                                     w2popup.open({
                                         title: appStr.enterPassword,
-                                        body : '<div style="margin-left: 20px; margin-right: 20px;"><p>' + appStr.sessionExceeded + '</div>',
+                                        body : '<div style="margin-left: 20px; margin-right: 20px;"><p>' + appStr.sessionLimit + '</div>',
                                         width: 250,
                                         height: 100,
                                     }); 
