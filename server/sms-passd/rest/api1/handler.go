@@ -171,6 +171,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	case "notify":
+		log.Info(fmt.Sprintf("Notification allowed: %v", timer.NotificationAllowed))
 		if timer.NotificationAllowed == true {
 			timer.NotificationAllowed = false
 			err := notifier.NotifySMS(viper.GetString("notifier.url"), viper.GetString("notifier.channel"), viper.GetString("notifier.contact"), "Hotspot: auth failed for " + clientIp)
@@ -178,7 +179,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				log.Error(err.Error())
 			}
 		}
-	
+		log.Info(fmt.Sprintf("Notification allowed: %v", timer.NotificationAllowed))
 		startPage, err := ioutil.ReadFile(viper.GetString("sms-passd.assets") + "/" + viper.GetString(clientSection+".assets") + "/error.html")
 		if err != nil {
 			log.Error(err.Error())
