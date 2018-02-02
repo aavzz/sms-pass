@@ -214,7 +214,7 @@ function mkPasswdForm(phone) {
 
     var m = "0";
     var p = "X";
-    for (let i = 1; i < appConfig.passLength; i++) {
+    for (var i = 1; i < appConfig.passLength; i++) {
         m = m + "0";
         p = p + "X";
     }
