@@ -8,6 +8,10 @@ import (
 	"regexp"
 )
 
+func redirect(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, viper.GetString("sms-passd.redirect"), 301)
+}
+	
 func spa(w http.ResponseWriter, r *http.Request) {
 	// figure out client prefix and get client configuration
 	header := viper.GetString("sms-passd.real_ip_header")
