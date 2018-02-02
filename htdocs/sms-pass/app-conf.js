@@ -1,5 +1,5 @@
 // User-configurable part
-let appConfig = {
+var appConfig = {
     attempts: 3,
     passLength: 4,
     phoneLength: 11,
@@ -25,8 +25,8 @@ let appConfig = {
 ////////////////////////////////////////////////////////////////////////
 
 // UI language auto-selection
-let language = navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage;
-let appStr = appStrings[language.replace(/-.*$/, "")];
+var language = navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage;
+var appStr = appStrings[language.replace(/-.*$/, "")];
 if (appStr == undefined) {
     appStr = appStrings.en;
 }
