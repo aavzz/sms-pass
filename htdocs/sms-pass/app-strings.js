@@ -33,6 +33,7 @@ let appStrings = {
         doNotAgree: 'Не согласен',
         denyAccess: 'Если пользователь не согласен с Правилами, он должен немедленно прекратить пользование услугой.',
         passSendFail: 'Ошибка: пароль не отправлен',
+        sessionLimit: 'Ошибка: превышено количество одновременных подключений',
     },
 
     en: {
@@ -67,6 +68,7 @@ let appStrings = {
         doNotAgree: "Reject",
         denyAccess: "If you do not agree with the service conditions, you must stop using the service immidiately",
         passSendFail: 'Failed to send password',
+        sessionLimit: 'Session limit exceeded',
     },
 
     es: {
@@ -101,6 +103,7 @@ let appStrings = {
         doNotAgree: "Rechazar",
         denyAccess: "Si no acepta las condiciones de servicio, el usuario debe terminar usarlo inmediatamente",
         passSendFail: 'No pude pasar contraseña',
+        sessionLimit: 'El numero de sesiones alcanzo su limite',
     },
 
 }
