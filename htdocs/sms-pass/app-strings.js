@@ -31,7 +31,8 @@ let appStrings = {
 `,
         agree: 'Согласен',
         doNotAgree: 'Не согласен',
-        denyAccess: 'Если пользователь не согласен с Правилами, он должен немедленно прекратить пользование услугой.'
+        denyAccess: 'Если пользователь не согласен с Правилами, он должен немедленно прекратить пользование услугой.',
+        passSendFail: 'Ошибка: пароль не отправлен',
     },
 
     en: {
@@ -65,6 +66,7 @@ let appStrings = {
         agree: "Accept",
         doNotAgree: "Reject",
         denyAccess: "If you do not agree with the service conditions, you must stop using the service immidiately",
+        passSendFail: 'Failed to send password',
     },
 
     es: {
@@ -98,6 +100,7 @@ let appStrings = {
         agree: "Aceptar",
         doNotAgree: "Rechazar",
         denyAccess: "Si no acepta las condiciones de servicio, el usuario debe terminar usarlo inmediatamente",
+        passSendFail: 'No pude pasar contraseña',
     },
 
 }
