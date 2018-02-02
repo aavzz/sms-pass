@@ -1,5 +1,5 @@
 // UI strings and messages in different languages
-let appStrings = {
+var appStrings = {
 
     ru: {
         enterPhoneNumber: "Введите номер телефона",
