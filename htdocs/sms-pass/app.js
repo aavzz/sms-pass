@@ -1,7 +1,7 @@
 
 function mkLayout() {
-    let top = 'background-color: #ffffff;';
-    let bottom = 'background-color: #ffffff; padding-top: 10px;';
+    var top = 'background-color: #ffffff;';
+    var bottom = 'background-color: #ffffff; padding-top: 10px;';
     $('#root').w2layout({
         name: 'myLayout',
         panels: [
@@ -86,15 +86,18 @@ function mkPhoneForm() {
             "reset": function() { this.clear(); },
             "save": function() {
                         if (w2ui['formPhone'].record.phone != undefined) {
-                            let phone = w2ui['formPhone'].record.phone.replace(/[^0-9]/g, "");
-                            let reg = new RegExp('^\\d{' + appConfig.phoneLength + '}$');
+                            var phone = w2ui['formPhone'].record.phone.replace(/[^0-9]/g, "");
+                            var reg = new RegExp('^\\d{' + appConfig.phoneLength + '}$');
                             if (phone != undefined && reg.test(phone)) {
-                                let params = {
+                                var params = {
                                     operation: "pass",
                                     login: '+' + phone,
                                 }
                                 $.post("/api1", params, function(data) {
                                     if (data.Error == 0) {
+                                        if (w2ui['formPassword'] != undefined) {
+                                            delete w2ui['formPassword'];
+                                        }
                                         mkPasswdForm(w2ui['formPhone'].record.phone);
                                         w2ui['myLayout'].content('main', w2ui['formPassword']);
                                     }
@@ -122,7 +125,7 @@ function mkPhoneForm() {
 ////////////////////////////////////////////////////////////////////////
 
 function mkPasswdForm(phone) {
-    let phoneStripped = phone.replace(/[^0-9]/g, "");
+    var phoneStripped = phone.replace(/[^0-9]/g, "");
     $('#formPassword').w2form({
         name   : 'formPassword',
         header   : appStr.enterPassword,
@@ -149,8 +152,8 @@ function mkPasswdForm(phone) {
         actions: {
             "reset": function() { this.clear(); },
             "save": function() {
-                        let pass = w2ui['formPassword'].record.password;
-                        let reg = new RegExp('^\\d{' + appConfig.passLength + '}$');
+                        var pass = w2ui['formPassword'].record.password;
+                        var reg = new RegExp('^\\d{' + appConfig.passLength + '}$');
                         if (pass != undefined && reg.test(pass)) {
                             $.post("/api1", {'operation': 'checkpass', 'login': '+' + phoneStripped, 'pass': pass}, function(data) {
                                 if (data.Error == "0") {
@@ -209,8 +212,8 @@ function mkPasswdForm(phone) {
         },
     });
 
-    let m = "0";
-    let p = "X";
+    var m = "0";
+    var p = "X";
     for (let i = 1; i < appConfig.passLength; i++) {
         m = m + "0";
         p = p + "X";
