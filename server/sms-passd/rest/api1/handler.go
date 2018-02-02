@@ -13,6 +13,7 @@ import (
 	"math/rand"
 	"net/http"
 	"regexp"
+	"io/ioutil"
 	"fmt"
 )
 
@@ -177,17 +178,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				log.Error(err.Error())
 			}
 		}
-		page := `<html>
-		<head><head>
-		<body>
-		<div>
-		<p>Произошла ужасная ошибка</>
-		<p>Мы уже работаем над ee устранением</p>
-		<div>
-		</body>
-		</html>
-		`
-		fmt.Fprintf(w, page)
+	
+		startPage, err := ioutil.ReadFile(viper.GetString("sms-passd.assets") + "/" + viper.GetString(clientSection+".assets") + "/error.html")
+		if err != nil {
+			log.Error(err.Error())
+		}
+		fmt.Fprintf(w, string(startPage))
 	default:
 		http.Redirect(w, r, viper.GetString("sms-passd.redirect"), 301)
 	}
