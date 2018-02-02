@@ -34,6 +34,8 @@ var appStrings = {
         denyAccess: 'Если пользователь не согласен с Правилами, он должен немедленно прекратить пользование услугой.',
         passSendFail: 'Ошибка: пароль не отправлен',
         sessionLimit: 'Ошибка: превышено количество одновременных подключений',
+        errorOccurred: 'Ошибка',
+        repairUnderway: 'Мы уже в курсе проблемы и принимаем меры к её устранению',
     },
 
     en: {
@@ -69,6 +71,8 @@ var appStrings = {
         denyAccess: "If you do not agree with the service conditions, you must stop using the service immidiately",
         passSendFail: 'Failed to send password',
         sessionLimit: 'Session limit exceeded',
+        errorOccurred: 'Error',
+        repairUnderway: 'We are aware of the problem, repair is underway',
     },
 
     es: {
@@ -104,6 +108,8 @@ var appStrings = {
         denyAccess: "Si no acepta las condiciones de servicio, el usuario debe terminar usarlo inmediatamente",
         passSendFail: 'No pude pasar contraseña',
         sessionLimit: 'El numero de sesiones alcanzo su limite',
+        errorOccurred: 'Error',
+        repairUnderway: 'Ya sabemos del problema y estamos arreglandolo',
     },
 
 }
