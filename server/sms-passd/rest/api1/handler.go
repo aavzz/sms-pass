@@ -51,7 +51,6 @@ type PassResp struct {
 // Handler processes requests and responds with a JSON object.
 func Handler(w http.ResponseWriter, r *http.Request) {
 
-	// redirect unknown clients
 	// figure out client prefix and get client configuration
 	header := viper.GetString("sms-passd.real_ip_header")
 	var clientIp string
@@ -65,6 +64,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	re = regexp.MustCompile(`\.`)
 	clientSection := re.ReplaceAllString(p, "_")
 
+	// redirect unknown clients
 	if viper.IsSet(clientSection+".assets") == false {
 		http.Redirect(w, r, viper.GetString("sms-passd.redirect"), 301)
 	}
