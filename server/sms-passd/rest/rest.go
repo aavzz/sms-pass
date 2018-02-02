@@ -17,6 +17,7 @@ func InitHttp() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", spa).Methods("GET")
 	r.HandleFunc("/api1", api1.Handler).Methods("POST")
+	r.HandleFunc("/api1", redirect).Methods("GET")
 	r.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir(viper.GetString("sms-passd.assets")))))
 
 	s := &http.Server{
