@@ -7,18 +7,18 @@ var appConfig = {
     phonePlaceholder: "9XX XXX XX XX",
     isp: {
         name: "ISP name",
-        logo: "path to ISP logo",
+        logo: "/assets/frontend/default/logo.png",
         logoWidth: 100,
-        logoHeight: 100,
+        logoHeight: 50,
     },
     hotspot: {
         type: "mikrotik|test",
         name: "Acme inc.",
-        logo: "path to client logo",
+        logo: "/assets/frontend/default/hotspot.png",
         logoWidth: 100,
         logoHeight: 100,
-        urlA: "authentication URL",
-        urlR: "client start page",
+        urlA: "http://...",
+        urlR: "https://...",
     },
 };
 
