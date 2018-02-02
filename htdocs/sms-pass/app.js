@@ -147,35 +147,40 @@ function mkPasswdForm(phone) {
             { name: 'password', type: 'text', },
         ],
         actions: {
-            "reset": function () { this.clear(); },
-            "save": function () {
+            "reset": function() { this.clear(); },
+            "save": function() {
                         let pass = w2ui['formPassword'].record.password;
                         let reg = new RegExp('^\\d{' + appConfig.passLength + '}$');
                         if (pass != undefined && reg.test(pass)) {
                             $.post("/api1", {'operation': 'checkpass', 'login': '+' + phoneStripped, 'pass': pass}, function(data) {
                                 if (data.Error == "0") {
                                     switch (appConfig.hotspot.type) {
-                                    case 'mikrotik':
-                                        //cannot use save(), we need get request
-                                        window.location.replace(appConfig.hotspot.urlA + '?username=%2B' +
+                                        case 'mikrotik':
+                                            //cannot use save(), we need `get` request, save() uses `post`
+                                            window.location.replace(appConfig.hotspot.urlA + '?username=%2B' +
                                                               phoneStripped + '&password=' + pass + '&dst=' +
                                                               appConfig.hotspot.urlR);
-                                    break;
-                                    case 'test':
-                                        w2popup.open({
-                                            title: appStr.userdata,
-                                            body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: +' + phoneStripped +
-                                               '<p>password: ' + pass +
-                                               '<p>auth_url: ' + appConfig.hotspot.urlA +
-                                               '<p>redirect_url: ' + appConfig.hotspot.urlR +
-                                               '</div>',
-                                            width: 350,
-                                            height: 180,
+                                        break;
+                                        default:
+                                            w2popup.open({
+                                                title: appStr.userdata,
+                                                body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: +' + phoneStripped +
+                                                       '<p>password: ' + pass +
+                                                       '<p>auth_url: ' + appConfig.hotspot.urlA +
+                                                       '<p>redirect_url: ' + appConfig.hotspot.urlR +
+                                                       '</div>',
+                                                width: 350,
+                                                height: 180,
                                             });
-                                    break;
-                                    default:
-                                            alert ("Unknown device type")
                                     }
+                                }
+                                else if (data.Error == "2") {
+                                    w2popup.open({
+                                        title: appStr.enterPassword,
+                                        body : '<div style="margin-left: 20px; margin-right: 20px;"><p>' + appStr.sessionExceeded + '</div>',
+                                        width: 250,
+                                        height: 100,
+                                    }); 
                                 }
                                 else {
                                     if (appConfig.attempts > 0) {
@@ -185,7 +190,7 @@ function mkPasswdForm(phone) {
                                             body : '<div style="margin-left: 20px; margin-right: 20px;"><p>' + appStr.wrongPassword + '</div>',
                                             width: 250,
                                             height: 100,
-                                            });
+                                        });
                                     }
                                     else {
                                         appConfig.attempts = 3;
@@ -221,4 +226,3 @@ $(function(){
     mkRulesForm();
     w2ui['myLayout'].content('main', w2ui['formRules']);
 });
-
