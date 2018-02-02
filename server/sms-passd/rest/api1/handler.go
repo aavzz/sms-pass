@@ -177,5 +177,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				log.Error(err.Error())
 			}
 		}
+	default:
+		http.Redirect(w, r, viper.GetString("sms-passd.redirect"), 301)
 	}
 }
