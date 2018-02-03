@@ -5,7 +5,7 @@ import (
 	"github.com/aavzz/daemon/log"
 	"github.com/aavzz/daemon/pid"
 	"github.com/aavzz/daemon/signal"
-	"github.com/aavzz/sms-pass/server/sms-passd/rest/api1"
+	"github.com/aavzz/sms-pass/backend/sms-passd/rest/api1"
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
 	"net/http"
