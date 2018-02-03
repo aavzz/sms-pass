@@ -5,7 +5,7 @@ function mkLayout() {
     $('#root').w2layout({
         name: 'myLayout',
         panels: [
-            { type: 'top', size: 150, style: top, content: '<div style="font-size: 11px;"><center><img src="' +
+            { type: 'top', size: 195, style: top, content: '<div style="font-size: 11px;"><center><img src="' +
                 appConfig.hotspot.logo + '" alt="hotspot owner logo" height="' +
                 appConfig.hotspot.logoHeight + '" width="' +
                 appConfig.hotspot.logoWidth  + '"><p>' +
