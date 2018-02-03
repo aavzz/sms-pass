@@ -1,0 +1,57 @@
+
+#root {
+    display: block;
+    width: 445px; height: 760px;
+    margin-left: auto; margin-right: auto; margin-top: 30px;
+}
+
+#rootError {
+    display: block;
+    width: 500px; height: 335px;
+    margin-left: auto; margin-right:auto; margin-top: 200px;
+}
+
+#layoutTop {
+    background-color: #ffffff;
+    font-size: 11px;
+    padding-bottom: 5px;
+}
+
+#layoutBottom {
+    background-color: #ffffff;
+    font-size: 11px;
+    padding-top: 15px; padding-bottom: 25px;
+}
+
+#rules {
+    display: block;
+    font-size: 13px;
+    width: 380px; height: 50px;
+    margin-left: auto; margin-right: auto;
+}
+
+.popup {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#phoneInfo {
+    display: block;
+    font-size: 14px;
+    width: 380px; height: 50px;
+    margin-left: auto; margin-right: auto; margin-top: 20px;
+}
+
+.lineInfo {
+    line-height: 1.4;
+}
+
+#inputPhoneDiv, #inputPassDiv {
+    margin-left: 95px;
+}
+
+#phone, #pass {
+    margin-top: 60px;
+    font-size: 20px;
+}
+

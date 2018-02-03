@@ -1,18 +1,16 @@
 
 function mkLayout() {
-    var top = 'background-color: #ffffff;';
-    var bottom = 'background-color: #ffffff; padding-top: 15px;';
     $('#root').w2layout({
         name: 'myLayout',
         panels: [
-            { type: 'top', size: 195, style: top, content: '<div style="font-size: 11px;"><center><img src="' +
+            { type: 'top', size: 195, content: '<div id="layoutTop"><center><img src="' +
                 appConfig.hotspot.logo + '" alt="hotspot owner logo" height="' +
                 appConfig.hotspot.logoHeight + '" width="' +
                 appConfig.hotspot.logoWidth  + '"><p>' +
                 appStr.hotspotOwner + ' ' +
                 appConfig.hotspot.name + '</center></div>',},
             { type: 'main', size: 200, },
-            { type: 'bottom', size: 150, style: bottom, content: '<div style="font-size: 11px;"><center><img src="' +
+            { type: 'bottom', size: 150, content: '<div id="layoutBottom"><center><img src="' +
                 appConfig.isp.logo + '" alt="ISP logo" height="' +
                 appConfig.isp.logoHeight + '" width="' +
                 appConfig.isp.logoWidth  + '"><p>' +
@@ -31,7 +29,7 @@ function mkRulesForm() {
         header: appStr.readRules,
         formHTML: 
             '<div class="w2ui-page page-0">'+
-            '    <div style="width: 380px; height: 50px; font-size: 13px; display: block; margin-left: auto; margin-right: auto;">'+
+            '    <div id="rules">'+
             '        ' + appStr.rules + 
             '    </div>'+
             '</div>'+
@@ -43,7 +41,7 @@ function mkRulesForm() {
             "reset": function() {
                          w2popup.open({
                              title: appStr.readRules,
-                             body : '<div style="margin-left: 20px; margin-right: 20px;"><p>' + appStr.denyAccess + '</div>',
+                             body : '<div class="popup"><p>' + appStr.denyAccess + '</div>',
                              width: 300,
                              height: 150,
                          });
@@ -65,13 +63,13 @@ function mkPhoneForm() {
         header: appStr.enterPhoneNumber,
         formHTML: 
             '<div class="w2ui-page page-0">'+
-            '    <div style="width: 380px; height: 50px; font-size: 14px; display: block; margin-left: auto; margin-right: auto; margin-top: 20px;">'+
-            '        <p style="line-height: 1.4;">' + appStr.enterPhoneNumber + '.</p>' +
-            '        <p style="line-height: 1.4;">' + appStr.passwordWillBeSent + '.</p>' +
+            '    <div id="phoneInfo">'+
+            '        <p class="lineInfo">' + appStr.enterPhoneNumber + '.</p>' +
+            '        <p class="lineInfo">' + appStr.passwordWillBeSent + '.</p>' +
             '    </div>'+
             '    <div class="w2ui-field">'+
-            '        <div style="margin-left: 95px;">'+
-            '            <input id="p2" class="input-phone" style="margin-top: 60px; font-size: 20px;" name="phone" maxlength="15" size="15"/>'+
+            '        <div id="inputPhoneDiv">'+
+            '            <input name="phone" maxlength="15" size="15"/>'+
             '        </div>'+
             '    </div>'+
             '</div>'+
@@ -104,7 +102,7 @@ function mkPhoneForm() {
                                     else {
                                         w2popup.open({
                                             title: appStr.readRules,
-                                            body : '<div style="margin-left: 20px; margin-right: 20px;"><p>' + appStr.passSendFail + '</div>',
+                                            body : '<div class="popup"><p>' + appStr.passSendFail + '</div>',
                                             width: 300,
                                             height: 150,
                                         });
@@ -167,7 +165,7 @@ function mkPasswdForm(phone) {
                                         default:
                                             w2popup.open({
                                                 title: appStr.userdata,
-                                                body : '<div style="margin-left: 20px; margin-right: 20px;"><p>username: +' + phoneStripped +
+                                                body : '<div class="popup"><p>username: +' + phoneStripped +
                                                        '<p>password: ' + pass +
                                                        '<p>auth_url: ' + appConfig.hotspot.urlA +
                                                        '<p>redirect_url: ' + appConfig.hotspot.urlR +
@@ -180,7 +178,7 @@ function mkPasswdForm(phone) {
                                 else if (data.Error == "2") {
                                     w2popup.open({
                                         title: appStr.enterPassword,
-                                        body : '<div style="margin-left: 20px; margin-right: 20px;"><p>' + appStr.sessionLimit + '</div>',
+                                        body : '<div class="popup"><p>' + appStr.sessionLimit + '</div>',
                                         width: 250,
                                         height: 100,
                                     }); 
@@ -190,7 +188,7 @@ function mkPasswdForm(phone) {
                                         appConfig.attempts--;    
                                         w2popup.open({
                                             title: appStr.enterPassword,
-                                            body : '<div style="margin-left: 20px; margin-right: 20px;"><p>' + appStr.wrongPassword + '</div>',
+                                            body : '<div class="popup"><p>' + appStr.wrongPassword + '</div>',
                                             width: 250,
                                             height: 100,
                                         });
