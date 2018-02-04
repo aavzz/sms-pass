@@ -655,4 +655,6 @@ Response (JSON):
 
 Custom frontends must be an SPA (single-page application). The main page must be named **spa.html**. All the notmal interaction with the user (password generation, credentials check, informing user about wrong password or session-limit) happens in the main page. Auxilliary error page which is displayed in case of hotspot problems (credentials passed the checks in the main SPA, but were rejected by the hotspot). Auxilliary error page must be named **error.html**.
 
+For additional includes absolute paths must be used.
+
 See provided default front-end for an example.
