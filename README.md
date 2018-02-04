@@ -23,6 +23,8 @@ We also need a service to do the actual user authentication. We'll use **free-ra
 
 I assume you know what an ssl sertificate is and how to handle it.
 
+Default front-end uses **w2ui** and **jQuery-Mask-Plugin**.
+
 ### Network setup
 
 Do not forget to add routed to your client hotspot networks.
