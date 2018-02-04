@@ -1,0 +1,23 @@
+/interface bridge
+add name=bridge-hotspot
+/ip hotspot profile
+add hotspot-address=<----10.15.1.1----> html-directory=hs1 login-by=http-pap name=hsprof1 use-radius=yes
+/ip hotspot user profile
+set [ find default=yes ] rate-limit=<----2000000/2000000----> session-timeout=1h
+/ip pool
+add name=hotspot ranges=<----10.15.1.2-10.15.1.254---->
+/ip dhcp-server
+add address-pool=hotspot authoritative=after-2sec-delay disabled=no interface=bridge-hotspot lease-time=1h name=dhcp-hotspot
+/ip hotspot
+add address-pool=hotspot addresses-per-mac=1 disabled=no idle-timeout=none interface=bridge-hotspot name=server1 profile=hsprof1
+/interface bridge port
+add bridge=bridge-hotspot interface=wlan
+/ip address
+add address=<----10.15.1.1/24----> interface=bridge-hotspot network=<----10.15.1.0---->
+/ip dhcp-server network
+add address=<----10.15.0.0/24----> dns-server=10.89.255.2 gateway=<----10.15.0.1----> netmask=24
+/ip hotspot walled-garden ip
+add action=accept disabled=no !dst-address !dst-address-list dst-host=<----AUTH_PORTAL----> !dst-port !protocol !src-address !src-address-list
+add action=accept disabled=no dst-address=<----10.15.1.1----> !dst-address-list !dst-port !protocol !src-address !src-address-list
+/radius
+add address=192.168.97.13 secret=qwertyu service=hotspot
