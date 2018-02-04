@@ -15,7 +15,7 @@
 
 ### What we need
 
-**sms-passd** is written in Go, so you need to have some basic knowledge how to build Go programs. It shold build cleanly accorging to standard Go procedures once you install all the needed Go dependencies. There are not many of them.
+**sms-passd** is written in Go, so you need to have some basic knowledge of how to build Go programs. It shold build cleanly accorging to standard Go procedures once you install all the needed Go dependencies. There are not many of them.
 
 **sms-passd** is a web-application, hence it can be run on its own in *http* mode. But I'd recommend using it in *https* mode. For that we need a proxy (e.g **nginx**). Maybe sometimes I'll add *https* and other usefull stuff to **sms-passd**, but right now we rely on proxy. **sms-passd** relies on local or remote **notifyd** to send SMS.
 
