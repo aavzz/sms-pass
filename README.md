@@ -23,11 +23,15 @@ We also need a service to do the actual user authentication. We'll use **free-ra
 
 I assume you know what an ssl sertificate is and how to handle it.
 
-### hotspot setup
+### Network setup
+
+Do not forget to add routed to your client hotspot networks.
+
+### Hotspot setup
 
 Carry out the steps described in a README for yout specific hotspot (see under the **equipment** directory).
 
-### radius setup
+### RADIUS setup
 
 Here is an example RADIUS configuration. It's no exactly the way that **free-radius** folks want it to be, but it's good enough for you to make you own mind.
 
