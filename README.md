@@ -2,7 +2,7 @@
 
 ## What it is
 
-**sms-pass** is a service to generate a password and send it via SMS to the provided number. It's intended use is authentication portal for a hotspot. Currently only ##mikrotik## hotspots are tested and known to work. Equipment from other vendors that permits external authentication should work as well.
+**sms-pass** is a service to generate a password and send it via SMS to the provided number. It's intended use is authentication portal for a hotspot. Currently only **mikrotik** hotspots are tested and known to work. Equipment from other vendors that permits external authentication should work as well.
 
 ## Features
 
