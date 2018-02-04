@@ -25,6 +25,10 @@ I assume you know what an ssl sertificate is and how to handle it.
 
 Carry out the steps described in a README for yout specific hotspot (see under the **equipment** directory).
 
+### radius setup
+
+### postgres setup
+
 ### nginx setup
 
 We'll try to keep things as simple as possible. So here's the **nginx** configuration file *nginx.conf*:
