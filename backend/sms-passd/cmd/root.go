@@ -61,10 +61,10 @@ func smspassdCommand(cmd *cobra.Command, args []string) {
 
 // Execute starts sms-passd execution
 func Execute() {
-	smspassd.Flags().StringP("config", "c", "/etc/sms-passd.conf", "configuration file (default: /etc/sms-passd.conf)")
-	smspassd.Flags().StringP("pidfile", "p", "/var/run/sms-passd.pid", "PID file (default: /var/run/sms-passd.pid)")
-	smspassd.Flags().StringP("address", "a", "127.0.0.1:8086", "address and port to bind to (default: 127.0.0.1:8086)")
-	smspassd.Flags().BoolP("daemonize", "d", false, "run as a daemon (default: no)")
+	smspassd.Flags().StringP("config", "c", "/etc/sms-passd.conf", "configuration file")
+	smspassd.Flags().StringP("pidfile", "p", "/var/run/sms-passd.pid", "PID file")
+	smspassd.Flags().StringP("address", "a", "127.0.0.1:8086", "address and port to bind to")
+	smspassd.Flags().BoolP("daemonize", "d", false, "run as a daemon (default \"false\")")
 	viper.BindPFlag("config", smspassd.Flags().Lookup("config"))
 	viper.BindPFlag("pidfile", smspassd.Flags().Lookup("pidfile"))
 	viper.BindPFlag("address", smspassd.Flags().Lookup("address"))
