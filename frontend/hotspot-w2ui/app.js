@@ -177,7 +177,7 @@ function mkPasswdForm(phone) {
                                 }
                                 else if (data.Error == "2") {
                                     w2popup.open({
-                                        title: appStr.enterPassword,
+                                        title: appStr.errorOccurred,
                                         body : '<div class="popup"><p>' + appStr.sessionLimit + '</div>',
                                         width: 250,
                                         height: 100,
@@ -187,7 +187,7 @@ function mkPasswdForm(phone) {
                                     if (appConfig.attempts > 0) {
                                         appConfig.attempts--;    
                                         w2popup.open({
-                                            title: appStr.enterPassword,
+                                            title: appStr.errorOccurred,
                                             body : '<div class="popup"><p>' + appStr.wrongPassword + '</div>',
                                             width: 250,
                                             height: 100,
