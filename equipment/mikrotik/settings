@@ -20,4 +20,4 @@ add address=<----10.15.1.0/24----> dns-server=8.8.8.8 gateway=<----10.15.1.1----
 add action=accept disabled=no !dst-address !dst-address-list dst-host=<----AUTH_PORTAL----> !dst-port !protocol !src-address !src-address-list
 add action=accept disabled=no dst-address=<----10.15.1.1----> !dst-address-list !dst-port !protocol !src-address !src-address-list
 /radius
-add address=<----AUTH_PORTAL----> secret=qwertyu service=hotspot
+add address=<----AUTH_PORTAL_IP----> secret=qwertyu service=hotspot
