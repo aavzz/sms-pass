@@ -15,9 +15,9 @@ add bridge=bridge-hotspot interface=wlan
 /ip address
 add address=<----10.15.1.1/24----> interface=bridge-hotspot network=<----10.15.1.0---->
 /ip dhcp-server network
-add address=<----10.15.0.0/24----> dns-server=10.89.255.2 gateway=<----10.15.0.1----> netmask=24
+add address=<----10.15.1.0/24----> dns-server=8.8.8.8 gateway=<----10.15.1.1----> netmask=24
 /ip hotspot walled-garden ip
 add action=accept disabled=no !dst-address !dst-address-list dst-host=<----AUTH_PORTAL----> !dst-port !protocol !src-address !src-address-list
 add action=accept disabled=no dst-address=<----10.15.1.1----> !dst-address-list !dst-port !protocol !src-address !src-address-list
 /radius
-add address=192.168.97.13 secret=qwertyu service=hotspot
+add address=<----AUTH_PORTAL----> secret=qwertyu service=hotspot
