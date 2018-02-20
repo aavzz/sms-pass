@@ -36,6 +36,45 @@ var appStrings = {
         sessionLimit: 'Превышено ограничение на количество одновременных подключений',
         errorOccurred: 'Ошибка',
         repairUnderway: 'Мы уже в курсе проблемы и принимаем меры к её устранению',
+        langChange: 'A↔文',
+    },
+
+    ch: {
+        enterPhoneNumber: "输入电话号码",
+        passwordWillBeSent: "密码将被发送到指定的电话号码",
+        send: "发送",
+        clear: "重启",
+        enterPassword: "输入密码",
+        passwordWasSent: "密码已发送至",
+        newPass: "需要新密码",
+        readRules: "服务条件",
+        hotspotOwner: "无线热点",
+        provider: "互联网服务提供商",
+        userdata: "用户数据",
+        wrongPassword: "密码检查失败",
+        rules: `
+<p style="line-height: 1.4; padding-bottom: 12px; font-weight: bold;">WiFi热点服务条件
+<p style="line-height: 1.4; padding-bottom: 10px; font-weifht: bold;">1.通过这个Wifi热点上网免费提供。
+<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold">2.此WiFi热点的用户不允许：
+<p style="line-height: 1.4; padding-bottom: 5px;">使用服务进行任何形式的非法活动。
+<p style="line-height: 1.4; padding-bottom: 5px;">使用本服务来伤害或试图伤害他人，企业或其他实体。
+<p style="line-height: 1.4; padding-bottom: 5px;">使用本服务传送任何侵犯任何第三方版权，商标，专利，商业秘密或其他所有权的材料。
+<p style="line-height: 1.4; padding-bottom: 5px;">2.4。 使用服务传输或促进任何未经请求的商业信息或未经请求的批量信息。
+<p style="line-height: 1.4; padding-bottom: 5px;">2.5。 使用服务进行任何活动，这会对其他人或系统使用Wi-Fi服务或互联网的能力产生不利影响。
+<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">3. WiFi热点服务所有者和互联网服务提供商均不对用户承担以下责任：
+<p style="line-height: 1.4; padding-bottom: 5px;">3.1。 由于使用或不提供服务而导致的任何直接，间接，附带，特殊或相应的损害。
+<p style="line-height: 1.4; padding-bottom: 10px;">3.2。 服务中断和/或中断，以及服务的速度和整体质量。
+<p style="line-height: 1.4; padding-bottom: 5px; font-weight: bold;">4.用户明确允许ISP收集，存储和处理他/她的个人数据。
+<p style="line-height: 1.4; padding-bottom: 10px; font-weight: bold;">5.通过按下“接受”按钮，用户完全接受上述WiFi热点服务条件。
+`,
+        agree: "接受",
+        doNotAgree: "拒绝",
+        denyAccess: "如果您不同意服务条款，您必须立即停止使用该服务",
+        passSendFail: '无法发送密码',
+        sessionLimit: '会话限制超出',
+        errorOccurred: '错误',
+        repairUnderway: '我们意识到这个问题，修理正在进行中',
+        langChange: 'A↔文',
     },
 
     en: {
@@ -73,6 +112,7 @@ var appStrings = {
         sessionLimit: 'Session limit exceeded',
         errorOccurred: 'Error',
         repairUnderway: 'We are aware of the problem, repair is underway',
+        langChange: 'A↔文',
     },
 
     es: {
@@ -110,6 +150,7 @@ var appStrings = {
         sessionLimit: 'El numero de sesiones paso su limite',
         errorOccurred: 'Error',
         repairUnderway: 'Ya sabemos del problema y estamos arreglandolo',
+        langChange: 'A↔文',
     },
 
 }

@@ -27,8 +27,10 @@ var appConfig = {
 
 // UI language auto-selection
 var language = navigator.languages && navigator.languages[0] || navigator.language || navigator.userLanguage;
-var appStr = appStrings[language.replace(/-.*$/, "")];
+var lang = language.replace(/-.*$/, "");
+var appStr = appStrings[lang];
 if (appStr == undefined) {
+    lang = "en";
     appStr = appStrings.en;
 }
 
