@@ -5,6 +5,7 @@ var appConfig = {
     phoneLength: 11,
     phoneMask: "+7 (9ZZ) ZZZ-ZZ-ZZ",
     phonePlaceholder: "9XX XXX XX XX",
+    defaultLang: "ru",
     isp: {
         name: "Best ISP ever",
         logo: "/assets/frontend/default/BlackbandedSeaperch.png",
