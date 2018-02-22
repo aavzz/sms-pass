@@ -8,12 +8,10 @@ function changeLanguage() {
     mkLayout();
     mkRulesForm();
     w2ui['myLayout'].content('main', w2ui['formRules']);
-
     if (lang == 'ch') {
         document.getElementById('img_hotspot').style.height='149px';
         document.getElementById('img_isp').style.height='48px';
     }
-
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -259,6 +257,9 @@ function mkPasswdForm(phone) {
 ////////////////////////////////////////////////////////////////////////
 
 $(function(){
+    if (lang != appConfig.defaultLang) {
+        langPopup();
+    }
     mkLayout();
     mkRulesForm();
     w2ui['myLayout'].content('main', w2ui['formRules']);
