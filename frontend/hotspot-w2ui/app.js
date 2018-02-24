@@ -16,6 +16,24 @@ function changeLanguage() {
 
 ////////////////////////////////////////////////////////////////////////
 
+function langPopup() {
+    w2popup.open({
+        title: '<img src="/assets/frontend/10_0_2/globe.png" height="12" width="12"> ' + appStr.langChange,
+        body : '<div class="popup"><p>'+
+               '<input id="l_ru" type="radio" name="langSelector" value="ru">а бббаКаИаЙ<br>'+
+               '<input id="l_en" type="radio" name="langSelector" value="en">English<br>'+
+               '<input id="l_es" type="radio" name="langSelector" value="es">EspaУБol<br>'+
+               '<input id="l_ch" type="radio" name="langSelector" value="ch">фИ­ц<br>'+
+               '<script>document.getElementById(\'l_'+lang+'\').checked = true;</script>'+
+               '</div>',
+        buttons: '<button class="btn" name="langSave" onclick="changeLanguage()"><img src="/assets/frontend/10_0_2/check.png" height="11" width="11"></button>',
+        width: 150,
+        height: 200,
+    });
+}
+
+////////////////////////////////////////////////////////////////////////
+
 function mkLayout() {
     $('#root').w2layout({
         name: 'myLayout',
@@ -56,22 +74,7 @@ function mkRulesForm() {
             '   <button class="btn" name="lang"><img src="/assets/frontend/default/globe.png" height="11" width="11"> ' + appStr.langChange + '</button>'+
             '</div>',
         actions: {
-            "lang": function() {
-                         w2popup.open({
-                             title: '<img src="/assets/frontend/default/globe.png" height="12" width="12"> ' + appStr.langChange,
-                             body : '<div class="popup"><p>'+
-                                    '<input id="l_ru" type="radio" name="langSelector" value="ru">Русский<br>'+
-                                    '<input id="l_en" type="radio" name="langSelector" value="en">English<br>'+
-                                    '<input id="l_es" type="radio" name="langSelector" value="es">Español<br>'+
-                                    '<input id="l_ch" type="radio" name="langSelector" value="ch">中文<br>'+
-                                    '<script>document.getElementById(\'l_'+lang+'\').checked = true;</script>'+
-                                    '</div>',
-                             buttons: '<button class="btn" name="langSave" onclick="changeLanguage()"><img src="/assets/frontend/default/check.png" height="11" width="11"></button>',
-                             width: 150,
-                             height: 200,
-                         });
-
-                    },
+            "lang": langPopup,
             "reset": function() {
                          w2popup.open({
                              title: appStr.readRules,
