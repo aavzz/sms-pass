@@ -19,7 +19,7 @@ var appConfig = {
         logo: "/assets/frontend/default/OrientalDollarbird.png",
         logoWidth: 160,
         logoHeight: 150,
-        urlA: "http://...",
+        urlA: "http://.../login",
         urlR: "https://google.com",
     },
 };
