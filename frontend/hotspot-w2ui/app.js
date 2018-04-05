@@ -8,17 +8,19 @@ function changeLanguage() {
     mkLayout();
     mkRulesForm();
     w2ui['myLayout'].content('main', w2ui['formRules']);
+
     if (lang == 'ch') {
         document.getElementById('img_hotspot').style.height='149px';
         document.getElementById('img_isp').style.height='48px';
     }
+
 }
 
 ////////////////////////////////////////////////////////////////////////
 
 function langPopup() {
     w2popup.open({
-        title: '<img src="/assets/frontend/default/globe.png" height="12" width="12"> ' + appStr.langChange,
+        title: '<img src="' + appConfig.img.globe + '" height="12" width="12"> ' + appStr.langChange,
         body : '<div class="popup"><p>'+
                '<input id="l_ru" type="radio" name="langSelector" value="ru">Русский<br>'+
                '<input id="l_en" type="radio" name="langSelector" value="en">English<br>'+
@@ -26,7 +28,7 @@ function langPopup() {
                '<input id="l_ch" type="radio" name="langSelector" value="ch">中文<br>'+
                '<script>document.getElementById(\'l_'+lang+'\').checked = true;</script>'+
                '</div>',
-        buttons: '<button class="btn" name="langSave" onclick="changeLanguage()"><img src="/assets/frontend/default/check.png" height="11" width="11"></button>',
+        buttons: '<button class="btn" name="langSave" onclick="changeLanguage()"><img src="' + appConfig.img.ok + '" height="11" width="11"></button>',
         width: 150,
         height: 200,
     });
@@ -71,7 +73,7 @@ function mkRulesForm() {
             '<div class="w2ui-buttons">'+
             '   <button class="btn" name="reset">' + appStr.doNotAgree + '</button>'+
             '   <button class="btn btn-green" name="save">' + appStr.agree + '</button>'+
-            '   <button class="btn" name="lang"><img src="/assets/frontend/default/globe.png" height="11" width="11"> ' + appStr.langChange + '</button>'+
+            '   <button class="btn" name="lang"><img src="' + appConfig.img.globe + '" height="14" width="14" style="margin-bottom: -3px;"> ' + appStr.langChange + '</button>'+
             '</div>',
         actions: {
             "lang": langPopup,
@@ -93,6 +95,20 @@ function mkRulesForm() {
 
 ////////////////////////////////////////////////////////////////////////
 
+function phoneRus() {
+   $('input[name="phone"]').attr("disabled",false);
+   $('input[name="phone_world"]').attr("disabled",true);
+   appConfig.phoneField='phone';
+}
+
+function phoneWorld() {
+   $('input[name="phone"]').attr("disabled",true);
+   $('input[name="phone_world"]').attr("disabled",false);
+   appConfig.phoneField='phone_world';
+}
+
+//////////////////////////////////////////////////////////////////
+
 function mkPhoneForm() {
 
     $('#formPhone').w2form({ 
@@ -106,7 +122,12 @@ function mkPhoneForm() {
             '    </div>'+
             '    <div class="w2ui-field">'+
             '        <div id="inputPhoneDiv">'+
-            '            <input name="phone" maxlength="15" size="15"/>'+
+            '            <input type="radio" name="phonetype" checked value="russia" onclick="phoneRus()"/>'+
+            '                  <img src="'+ appConfig.img.flag +'" height="25" width="32" style="margin-bottom: -5px;">'+
+            '                  <input name="phone" maxlength="15" size="15"/><br><br>'+
+            '            <input type="radio" name="phonetype" value="world" onclick="phoneWorld()"/>'+
+            '                  <img src="'+ appConfig.img.world  +'" allign="bottom" height="25" width="32" style="margin-bottom: -5px;">'+
+            '                  <input name="phone_world" disabled maxlength="25" size="15"/>'+
             '        </div>'+
             '    </div>'+
             '</div>'+
@@ -116,14 +137,15 @@ function mkPhoneForm() {
             '</div>',
         fields : [
             { name: 'phone', type: 'text', },
+            { name: 'phone_world', type: 'text', },
         ],
         actions: {
             "reset": function() { this.clear(); },
             "save": function() {
-                        if (w2ui['formPhone'].record.phone != undefined) {
-                            var phone = w2ui['formPhone'].record.phone.replace(/[^0-9]/g, "");
+                        if (w2ui['formPhone'].record[appConfig.phoneField] != undefined) {
+                            var phone = w2ui['formPhone'].record[appConfig.phoneField].replace(/[^0-9]/g, "");
                             var reg = new RegExp('^\\d{' + appConfig.phoneLength + '}$');
-                            if (phone != undefined && reg.test(phone)) {
+                            if (phone != undefined && (appConfig.phoneField == 'phone_world' || reg.test(phone))) {
                                 var params = {
                                     operation: "pass",
                                     login: '+' + phone,
@@ -133,7 +155,7 @@ function mkPhoneForm() {
                                         if (w2ui['formPassword'] != undefined) {
                                             w2ui['formPassword'].destroy();
                                         }
-                                        mkPasswdForm(w2ui['formPhone'].record.phone);
+                                        mkPasswdForm(w2ui['formPhone'].record[appConfig.phoneField]);
                                         w2ui['myLayout'].content('main', w2ui['formPassword']);
                                     }
                                     else {
@@ -154,7 +176,9 @@ function mkPhoneForm() {
                     }
         },
     });
+
     $('input[name="phone"]').mask(appConfig.phoneMask, {placeholder: appConfig.phonePlaceholder, clearIfNotMatch: true, translation: { Z: {pattern: /\d/}, 9: {pattern: /9/}}});
+    $('input[name="phone_world"]').mask("00000000000000", {clearIfNotMatch: false});
 }
 
 ////////////////////////////////////////////////////////////////////////

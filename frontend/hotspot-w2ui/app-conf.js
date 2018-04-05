@@ -6,10 +6,17 @@ var appConfig = {
     phoneMask: "+7 (9ZZ) ZZZ-ZZ-ZZ",
     phonePlaceholder: "9XX XXX XX XX",
     defaultLang: "ru",
+    phoneField: "phone",
+    img: {
+        ok: "/assets/frontend/default/check.png",
+        globe: "/assets/frontend/default/globe.png",
+        flag: "/assets/frontend/default/russia.png",
+        world: "/assets/frontend/default/world.png",
+    },
     isp: {
-        name: "Best ISP ever",
-        logo: "/assets/frontend/default/BlackbandedSeaperch.png",
-        logoWidth: 100,
+        name: "ООО Метробит",
+        logo: "/assets/frontend/default/metrobit.png",
+        logoWidth: 90,
         logoHeight: 50,
     },
     hotspot: {
