@@ -34,13 +34,6 @@ func StorePass(login, pass string) error {
 		return err
 	}
 
-	if _, err := dbh.Exec("DELETE FROM radcheck WHERE username=$1", login); err != nil {
-		if err := t.Rollback(); err != nil {
-			return err
-		}
-		return err
-	}
-
 	if _, err := dbh.Exec("DELETE FROM radusergroup WHERE username=$1", login); err != nil {
 		if err := t.Rollback(); err != nil {
 			return err
@@ -72,7 +65,7 @@ func StorePass(login, pass string) error {
 // CheckPass checks correctness of login and password
 func CheckPass(login, password string) error {
 	var username string
-	err := dbh.QueryRow("select username from radcheck where username=$1 AND attribute='Cleartext-Password' AND op=':=' AND value=$2", login, password).Scan(&username)
+	err := dbh.QueryRow("select username from radcheck where username=$1 AND attribute='Cleartext-Password' AND op=':=' AND value=$2 AND tstamp=(select max(tstamp) from radcheck where username=$1)", login, password).Scan(&username)
 	switch {
 	case err == sql.ErrNoRows:
 		return errors.New("No rows found")
