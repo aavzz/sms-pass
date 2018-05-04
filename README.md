@@ -242,7 +242,7 @@ sql_user_name = "%{User-Name}"
 
 client_query = "SELECT id, nasname, shortname, type, secret, server FROM ${client_table}"
 
-authorize_check_query = "SELECT id, UserName, Attribute, Value, Op FROM ${authcheck_table} WHERE Username = '%{SQL-User-Name}' ORDER BY id"
+authorize_check_query = "SELECT id, UserName, Attribute, Value, Op FROM ${authcheck_table} WHERE Username = '%{SQL-User-Name}' AND tstamp=(select max(tstamp) from radcheck where username='%{SQL-User-Name}') ORDER BY id"
 authorize_reply_query = "SELECT id, UserName, Attribute, Value, Op FROM ${authreply_table} WHERE Username = '%{SQL-User-Name}' ORDER BY id"
 authorize_group_check_query = "SELECT id, GroupName, Attribute, Value, op FROM ${groupcheck_table} WHERE GroupName = '%{${group_attribute}}' ORDER BY id"
 authorize_group_reply_query = "SELECT id, GroupName, Attribute, Value, op FROM ${groupreply_table} WHERE GroupName = '%{${group_attribute}}' ORDER BY id"
