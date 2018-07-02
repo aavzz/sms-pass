@@ -73,6 +73,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	ret := json.NewEncoder(w)
 	operation := r.FormValue("operation")
+	tag := r.FormValue("tag")
 
 	switch operation {
 	case "pass":
@@ -87,7 +88,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				b[i] = letterBytes[rand.Intn(len(letterBytes))]
 			}
 
-			err := db.StorePass(phones[0], string(b))
+			err := db.StorePass(phones[0], string(b), tag)
 			if err != nil {
 				log.Error(err.Error())
 			} else {

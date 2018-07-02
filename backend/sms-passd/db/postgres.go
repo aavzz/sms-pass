@@ -28,7 +28,7 @@ func InitDB() {
 }
 
 // StorePass stores passwords in database
-func StorePass(login, pass string) error {
+func StorePass(login, pass, tag string) error {
 	t, err := dbh.Begin()
 	if err != nil {
 		return err
@@ -41,7 +41,7 @@ func StorePass(login, pass string) error {
 		return err
 	}
 
-	if _, err := dbh.Exec("INSERT INTO radcheck(username, attribute, op, value) VALUES($1, 'Cleartext-Password', ':=', $2)", login, pass); err != nil {
+	if _, err := dbh.Exec("INSERT INTO radcheck(username, attribute, op, value, hs_tag) VALUES($1, 'Cleartext-Password', ':=', $2, $3)", login, pass, tag); err != nil {
 		if err := t.Rollback(); err != nil {
 			return err
 		}

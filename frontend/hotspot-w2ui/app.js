@@ -149,6 +149,7 @@ function mkPhoneForm() {
                                 var params = {
                                     operation: "pass",
                                     login: '+' + phone,
+                                    tag: '+' + appConfig.tag,
                                 }
                                 $.post("/api1", params, function(data) {
                                     if (data.Error == 0) {

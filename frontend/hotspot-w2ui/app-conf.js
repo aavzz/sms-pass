@@ -7,6 +7,7 @@ var appConfig = {
     phonePlaceholder: "9XX XXX XX XX",
     defaultLang: "ru",
     phoneField: "phone",
+    tag: "hotspot",
     img: {
         ok: "/assets/frontend/default/check.png",
         globe: "/assets/frontend/default/globe.png",
